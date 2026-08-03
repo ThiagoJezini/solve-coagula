@@ -65,6 +65,20 @@ export const VANTAGENS: Vantagem[] = [
     descricao: 'Alguém que você confiou se voltou contra você. O nome do algoz queima a memória.',
     mecanica: '-1 em testes sempre que confrontar seu algoz.',
   },
+  {
+    id: 'ferimento-de-guerra',
+    nome: 'Ferimento de Guerra',
+    tipo: 'desvantagem',
+    descricao: 'Você passou por muita coisa e isso te mudou pra sempre.',
+    mecanica: '-1 em testes sempre que seu movimento for o foco da ação.',
+  },
+  {
+    id: 'exaurido',
+    nome: 'Exaurido',
+    tipo: 'desvantagem',
+    descricao: 'Existe alguma maldição que te suga, irrastreável e silenciosa ela te consome.',
+    mecanica: '-1 em carga no seu foco.',
+  },
 ]
 
 export const VANTAGEM_BY_ID = (id: string) => VANTAGENS.find((v) => v.id === id)

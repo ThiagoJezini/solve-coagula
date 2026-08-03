@@ -287,6 +287,8 @@ Representam o passado do personagem. Todo jogador pode escolher vantagens e desv
 - **Procurado** — Sofra -2 em testes sempre que envolver esconder sua real identidade. *(requer: Ficha suja)*
 - **Ficha suja** — Sofra -1 em testes sempre que alguma autoridade descobre algo pessoal seu.
 - **Traído** — Sofra -1 em testes sempre que confrontar seu algoz.
+- **Ferimento de Guerra** — Você passou por muita coisa e isso te mudou pra sempre. Sofra -1 em testes sempre que seu movimento for o foco da ação.
+- **Exaurido** — Existe alguma maldição que te suga, irrastreável e silenciosa ela te consome. Sofra -1 em carga no seu foco.
 
 ## Maldições
 
