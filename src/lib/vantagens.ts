@@ -44,6 +44,14 @@ export const VANTAGENS: Vantagem[] = [
     pilar: 'consciencia',
   },
   {
+    id: 'um-com-a-natureza',
+    nome: 'Um com a Natureza',
+    tipo: 'vantagem',
+    descricao: 'Você foi criado fora da cidade e na verdade era melhor ter continuado por lá mesmo.',
+    mecanica: '+1 em testes que envolvam estar em contato com chão natural.',
+    pilar: 'natureza',
+  },
+  {
     id: 'procurado',
     nome: 'Procurado',
     tipo: 'desvantagem',

@@ -281,6 +281,7 @@ Representam o passado do personagem. Todo jogador pode escolher vantagens e desv
 - **Apostador de vontades** — Quando estiver prestes a riscar uma Motivação, faça um teste DT 7. Se passar, não risca a Motivação. Se falhar, sofre 1d6 de Risco de Vida. *(pilar: Consciência)*
 - **Pernas não tão curtas** — +1 em testes que envolvam mentir mais de uma vez para o mesmo personagem que não seja de jogador. *(pilar: Consciência)*
 - **Relíquia de família** — +1 em testes que envolvam usar sua relíquia. *(pilar: Consciência)*
+- **Um com a Natureza** — Você foi criado fora da cidade e na verdade era melhor ter continuado por lá mesmo. +1 em testes que envolvam estar em contato com chão natural. *(pilar: Natureza)*
 
 ### Desvantagens
 
