@@ -278,7 +278,7 @@ Representam o passado do personagem. Todo jogador pode escolher vantagens e desv
 ### Vantagens
 
 - **Técnico** — Some +1 em testes que envolvam usar sistemas de computador. *(pilar: Leis)*
-- **Apostador de vontades** — Ao gastar força de vontade, role 1d12. Se tirar 7 ou mais, não ganha stress. Se tirar menos que 7, ganha em stress o valor que tirou. *(pilar: Consciência)*
+- **Apostador de vontades** — Quando estiver prestes a riscar uma Motivação, faça um teste DT 7. Se passar, não risca a Motivação. Se falhar, sofre 1d6 de Risco de Vida. *(pilar: Consciência)*
 - **Pernas não tão curtas** — +1 em testes que envolvam mentir mais de uma vez para o mesmo personagem que não seja de jogador. *(pilar: Consciência)*
 - **Relíquia de família** — +1 em testes que envolvam usar sua relíquia. *(pilar: Consciência)*
 

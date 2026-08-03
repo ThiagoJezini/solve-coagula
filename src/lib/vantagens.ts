@@ -23,8 +23,8 @@ export const VANTAGENS: Vantagem[] = [
     id: 'apostador-de-vontades',
     nome: 'Apostador de vontades',
     tipo: 'vantagem',
-    descricao: 'Em vez de aceitar passivamente o custo, você joga a própria sorte contra o destino.',
-    mecanica: 'Ao gastar força de vontade, role 1d12. Se tirar 7 ou mais, não ganha stress. Se tirar menos que 7, ganha em stress o valor que tirou.',
+    descricao: 'Em vez de aceitar passivamente o custo, você joga a própria sorte contra o destino. Quando estiver pretes a riscar uma Motivação faça um teste DT 7, se passar você não risca a Motivação, se falhar você sofre 1d6 de Risco de VIda',
+    mecanica: '',
     pilar: 'consciencia',
   },
   {
