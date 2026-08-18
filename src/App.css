@@ -2691,14 +2691,25 @@
   .vd-item-efeito { font-size: 12px !important; }
   .vd-remove { width: 28px; height: 28px; font-size: 14px; }
 
-  /* popup geral */
+  /* popup geral — bottom sheet 50% da tela */
   .popup-floating {
     left: 8px !important;
     right: 8px !important;
+    top: auto !important;
+    bottom: 8px !important;
     width: auto !important;
     min-width: 0 !important;
     max-width: none !important;
+    max-height: 50vh !important;
+    height: 50vh !important;
+    display: flex;
+    flex-direction: column;
   }
+  .popup-header { flex-shrink: 0; }
+  .vd-tabs, .vd-lista, .vd-footer { flex-shrink: 0; }
+  .vd-lista { flex: 1; min-height: 0; }
+  .tooltip-tabela { display: block; overflow-x: auto; }
+  .tooltip-tabela thead, .tooltip-tabela tbody { display: table; width: 100%; }
   .popup-close { width: 28px; height: 28px; }
   .vd-popup { min-width: 0 !important; }
   .vd-tabs .vd-tab { padding: 10px 6px; font-size: 11px; }
