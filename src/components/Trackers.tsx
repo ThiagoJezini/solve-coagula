@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 
 interface TrackersProps {
   stress: number
@@ -27,22 +27,42 @@ export function Trackers({ stress, riscoDeVida, onStressChange, onRiscoChange }:
   const [lastRoll, setLastRoll] = useState('')
   const [localStress, setLocalStress] = useState(stress)
   const [exploding, setExploding] = useState(false)
+  const blockingRef = useRef(false)
+  const timersRef = useRef<number[]>([])
 
   useEffect(() => { setLocalStress(stress) }, [stress])
 
+  useEffect(() => {
+    return () => {
+      timersRef.current.forEach((t) => clearTimeout(t))
+      timersRef.current = []
+    }
+  }, [])
+
+  const clearTimers = () => {
+    timersRef.current.forEach((t) => clearTimeout(t))
+    timersRef.current = []
+  }
+
   const handleStressClick = (index: number) => {
-    if (exploding) return
+    if (blockingRef.current) return
+
     const next = localStress === index + 1 ? index : index + 1
     if (next === STRESS_MAX) {
+      clearTimers()
+      blockingRef.current = true
       setLocalStress(STRESS_MAX)
-      setTimeout(() => {
+      const t1 = window.setTimeout(() => {
         setExploding(true)
       }, 220)
-      setTimeout(() => {
+      const t2 = window.setTimeout(() => {
+        setLocalStress(0)
         onStressChange(0)
         onRiscoChange(Math.min(RISCO_MAX, riscoDeVida + 1))
         setExploding(false)
+        blockingRef.current = false
       }, 900)
+      timersRef.current = [t1, t2]
     } else {
       setLocalStress(next)
       onStressChange(next)

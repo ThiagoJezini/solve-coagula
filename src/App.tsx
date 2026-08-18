@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import type { Player, Character } from './types'
-import { getOrCreatePlayer, getCharacters, createCharacter, deleteCharacter } from './lib/api'
+import { getOrCreatePlayer, getCharacters, createCharacter, deleteCharacter } from './lib/localApi'
 import { CharacterSheet } from './CharacterSheet'
 import './App.css'
 
@@ -28,8 +28,16 @@ export default function App() {
       localStorage.setItem('solve_player', player.name)
       const chars = await getCharacters(player.id)
       setView({ screen: 'list', player, characters: chars })
-    } catch {
-      setError('Erro ao conectar. Verifique sua internet e tente novamente.')
+    } catch (err) {
+      let msg = 'erro desconhecido'
+      if (err && typeof err === 'object') {
+        const e = err as { message?: string; error_description?: string; details?: string; hint?: string; code?: string }
+        msg = e.message || e.error_description || e.details || e.hint || e.code || JSON.stringify(err)
+      } else if (typeof err === 'string') {
+        msg = err
+      }
+      console.error('Login error:', err)
+      setError('Erro ao entrar: ' + msg)
     } finally {
       setLoading(false)
     }

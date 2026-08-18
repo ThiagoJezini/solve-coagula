@@ -28,11 +28,26 @@ html, body {
   padding: 0;
 }
 
+html {
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+img {
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+}
+
 body {
   background: var(--bg);
   font-family: 'IBM Plex Mono', 'Courier New', monospace;
   color: var(--ink);
   min-height: 100vh;
+  overscroll-behavior: none;
+  -webkit-overflow-scrolling: touch;
   position: relative;
   overflow-x: hidden;
 }
