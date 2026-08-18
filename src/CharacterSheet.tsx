@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback, useRef } from 'react'
 import type { Character } from './types'
-import { updateCharacter } from './lib/localApi'
+import { updateCharacter } from './lib/api'
 import { countMaldicoesPorPilar } from './lib/maldicoes'
 import { calcularPenalidadePorFerimentos, type Pilar } from './lib/ferimentos'
 import { Header } from './components/Header'

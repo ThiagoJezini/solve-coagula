@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import type { Player, Character } from './types'
-import { getOrCreatePlayer, getCharacters, createCharacter, deleteCharacter } from './lib/localApi'
+import { getOrCreatePlayer, getCharacters, createCharacter, deleteCharacter } from './lib/api'
 import { CharacterSheet } from './CharacterSheet'
 import './App.css'
 
@@ -36,7 +36,7 @@ export default function App() {
       } else if (typeof err === 'string') {
         msg = err
       }
-      console.error('Login error:', err)
+      console.error('Supabase login error:', err)
       setError('Erro ao entrar: ' + msg)
     } finally {
       setLoading(false)
