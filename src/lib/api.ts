@@ -1,5 +1,5 @@
 import { supabase } from './supabase'
-import type { Player, Character, CharacterInsert, CharacterUpdate } from '../types'
+import type { Player, Character, CharacterInsert, CharacterUpdate, Heist, HeistInsert } from '../types'
 
 export async function getOrCreatePlayer(name: string): Promise<Player> {
   const { data: existing } = await supabase
@@ -65,6 +65,61 @@ export async function updateCharacter(id: string, updates: CharacterUpdate): Pro
 export async function deleteCharacter(id: string): Promise<void> {
   const { error } = await supabase
     .from('characters')
+    .delete()
+    .eq('id', id)
+
+  if (error) throw error
+}
+
+export async function getHeists(playerId: string): Promise<Heist[]> {
+  const { data, error } = await supabase
+    .from('heists')
+    .select('*')
+    .eq('player_id', playerId)
+    .order('updated_at', { ascending: false })
+
+  if (error) throw error
+  return data ?? []
+}
+
+export async function createHeist(playerId: string): Promise<Heist> {
+  const newHeist: HeistInsert = {
+    player_id: playerId,
+    nome: '',
+    nome_real: '',
+    nome_disfarce: '',
+    local_base: '',
+    objetivo: '',
+    fase_atual: 1,
+    suspeita: 0,
+    relogio: 0,
+    reforco: '',
+    veterano_bonus: '',
+    falha_descoberta: false,
+    anotacoes: '',
+  }
+  const { data, error } = await supabase
+    .from('heists')
+    .insert(newHeist)
+    .select()
+    .single()
+
+  if (error) throw error
+  return data
+}
+
+export async function updateHeist(id: string, updates: Partial<Heist>): Promise<void> {
+  const { error } = await supabase
+    .from('heists')
+    .update({ ...updates, updated_at: new Date().toISOString() })
+    .eq('id', id)
+
+  if (error) throw error
+}
+
+export async function deleteHeist(id: string): Promise<void> {
+  const { error } = await supabase
+    .from('heists')
     .delete()
     .eq('id', id)
 

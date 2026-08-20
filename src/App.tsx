@@ -1,10 +1,15 @@
 import { useState, useEffect } from 'react'
-import type { Player, Character } from './types'
-import { getOrCreatePlayer, getCharacters, createCharacter, deleteCharacter } from './lib/api'
+import type { Player, Character, Heist } from './types'
+import { getOrCreatePlayer, getCharacters, createCharacter, deleteCharacter, getHeists, createHeist, deleteHeist } from './lib/api'
 import { CharacterSheet } from './CharacterSheet'
+import { HeistSheet } from './components/HeistSheet'
 import './App.css'
 
-type View = { screen: 'login' } | { screen: 'list'; player: Player; characters: Character[] } | { screen: 'sheet'; character: Character; player: Player }
+type View =
+  | { screen: 'login' }
+  | { screen: 'list'; player: Player; characters: Character[]; heists: Heist[] }
+  | { screen: 'sheet'; character: Character; player: Player }
+  | { screen: 'heist'; heist: Heist; player: Player }
 
 export default function App() {
   const [view, setView] = useState<View>({ screen: 'login' })
@@ -26,8 +31,11 @@ export default function App() {
     try {
       const player = await getOrCreatePlayer(playerName.trim())
       localStorage.setItem('solve_player', player.name)
-      const chars = await getCharacters(player.id)
-      setView({ screen: 'list', player, characters: chars })
+      const [chars, heists] = await Promise.all([
+        getCharacters(player.id),
+        getHeists(player.id),
+      ])
+      setView({ screen: 'list', player, characters: chars, heists })
     } catch (err) {
       let msg = 'erro desconhecido'
       if (err && typeof err === 'object') {
@@ -41,6 +49,14 @@ export default function App() {
     } finally {
       setLoading(false)
     }
+  }
+
+  async function refreshList(player: Player) {
+    const [chars, heists] = await Promise.all([
+      getCharacters(player.id),
+      getHeists(player.id),
+    ])
+    setView({ screen: 'list', player, characters: chars, heists })
   }
 
   async function handleCreateCharacter() {
@@ -60,10 +76,32 @@ export default function App() {
     if (view.screen !== 'list') return
     try {
       await deleteCharacter(id)
-      const chars = await getCharacters(view.player.id)
-      setView({ screen: 'list', player: view.player, characters: chars })
+      await refreshList(view.player)
     } catch {
       setError('Erro ao deletar ficha.')
+    }
+  }
+
+  async function handleCreateHeist() {
+    if (view.screen !== 'list') return
+    setLoading(true)
+    try {
+      const newHeist = await createHeist(view.player.id)
+      setView({ screen: 'heist', heist: newHeist, player: view.player })
+    } catch {
+      setError('Erro ao criar ficha de assalto.')
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  async function handleDeleteHeist(id: string) {
+    if (view.screen !== 'list') return
+    try {
+      await deleteHeist(id)
+      await refreshList(view.player)
+    } catch {
+      setError('Erro ao deletar ficha de assalto.')
     }
   }
 
@@ -72,16 +110,33 @@ export default function App() {
     setView({ screen: 'sheet', character: char, player: view.player })
   }
 
-  function handleBack() {
+  function handleSelectHeist(heist: Heist) {
+    if (view.screen !== 'list') return
+    setView({ screen: 'heist', heist, player: view.player })
+  }
+
+  function handleBackFromSheet() {
     if (view.screen === 'sheet') {
-      getCharacters(view.player.id).then((chars) => {
-        setView({ screen: 'list', player: view.player, characters: chars })
-      })
+      refreshList(view.player)
     }
   }
 
+  function handleBackFromHeist() {
+    if (view.screen === 'heist') {
+      refreshList(view.player)
+    }
+  }
+
+  function handleBackFromList() {
+    setView({ screen: 'login' })
+  }
+
   if (view.screen === 'sheet') {
-    return <CharacterSheet character={view.character} onBack={handleBack} />
+    return <CharacterSheet character={view.character} onBack={handleBackFromSheet} />
+  }
+
+  if (view.screen === 'heist') {
+    return <HeistSheet heist={view.heist} onBack={handleBackFromHeist} />
   }
 
   if (view.screen === 'list') {
@@ -89,7 +144,7 @@ export default function App() {
       <div className="app">
         <div className="container">
           <div className="toolbar-list">
-            <button className="btn-back" onClick={() => setView({ screen: 'login' })}>
+            <button className="btn-back" onClick={handleBackFromList}>
               ← Voltar
             </button>
           </div>
@@ -98,6 +153,7 @@ export default function App() {
 
           {error && <div className="error">{error}</div>}
 
+          <h2 className="list-section-title">Fichas de personagem</h2>
           <div className="char-list">
             {view.characters.map((c) => (
               <div key={c.id} className="char-card" onClick={() => handleSelectCharacter(c)}>
@@ -122,6 +178,33 @@ export default function App() {
 
           <button className="btn-primary" onClick={handleCreateCharacter} disabled={loading}>
             {loading ? 'Criando…' : '+ Nova Ficha'}
+          </button>
+
+          <h2 className="list-section-title">Fichas de assalto</h2>
+          <div className="char-list">
+            {view.heists.map((h) => (
+              <div key={h.id} className="char-card" onClick={() => handleSelectHeist(h)}>
+                <div className="char-info">
+                  <div className="char-name">{h.nome_real || h.nome_disfarce || 'Sem nome'}</div>
+                  <div className="char-player">{h.local_base || '—'}</div>
+                  <div className="char-date">Atualizado: {new Date(h.updated_at).toLocaleDateString('pt-BR')}</div>
+                </div>
+                <button
+                  className="btn-delete"
+                  onClick={(e) => { e.stopPropagation(); handleDeleteHeist(h.id) }}
+                >
+                  🗑️
+                </button>
+              </div>
+            ))}
+
+            {view.heists.length === 0 && (
+              <p className="empty">Nenhuma ficha de assalto ainda.</p>
+            )}
+          </div>
+
+          <button className="btn-primary" onClick={handleCreateHeist} disabled={loading}>
+            {loading ? 'Criando…' : '+ Ficha de Assalto'}
           </button>
         </div>
       </div>

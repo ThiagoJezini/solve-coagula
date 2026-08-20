@@ -4,6 +4,46 @@ export interface Player {
   created_at: string
 }
 
+export interface Heist {
+  id: string
+  player_id: string
+  nome: string
+  nome_real: string
+  nome_disfarce: string
+  local_base: string
+  objetivo: string
+  fase_atual: number
+  suspeita: number
+  relogio: number
+  reforco: string
+  veterano_bonus: string
+  falha_descoberta: boolean
+  anotacoes: string
+  created_at: string
+  updated_at: string
+}
+
+export interface Heist {
+  id: string
+  player_id: string
+  nome: string
+  nome_real: string
+  nome_disfarce: string
+  local_base: string
+  objetivo: string
+  fase_atual: number
+  suspeita: number
+  relogio: number
+  reforco: string
+  veterano_bonus: string
+  falha_descoberta: boolean
+  anotacoes: string
+  created_at: string
+  updated_at: string
+}
+
+export type HeistInsert = Omit<Heist, 'id' | 'created_at' | 'updated_at'>
+
 export interface Character {
   id: string
   player_id: string
