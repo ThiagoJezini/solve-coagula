@@ -353,17 +353,17 @@ Descobrir quais Salas a base possui: testes na sala têm +1 durante a Fase 2. Ao
 
 ### Grupo dominante
 
-O grupo da Mão que domina a base. É possível que esteja abandonada.
+O grupo da Mão que está dominando a base, é possível que a base esteja abandonada e nenhum grupo tome conta da base.
 
 ### Defesas
 
-Lado de fora da base: muros, portões, câmeras. Primeira barreira.
+Lado de fora da base: muros, portões, câmeras de segurança. Primeira barreira dos jogadores para avançar.
 
-Se souberem as defesas, testes contra elas têm +1 na Fase 2.
+Se os personagens descobrirem as defesas da base, recebem +1 em um teste na Fase 3.
 
 ### Falhas de segurança
 
-Se souberem, podem receber +1 em um teste uma vez durante a Fase 2. O personagem que usar deve dizer qual era a falha.
+Nenhuma prisão é perfeita, todas tem uma falha. Se os personagens souberem de uma falha de segurança uma vez durante a Fase 2 eles podem receber +1 em um teste. O personagem que usar essa vantagem deve dizer qual era a falha de segurança que o grupo encontrou.
 
 ### Tropa de reforço
 

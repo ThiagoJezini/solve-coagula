@@ -7,6 +7,25 @@ interface HeistSheetProps {
   onBack: () => void
 }
 
+function useAutoResizeTextarea(ref: React.RefObject<HTMLTextAreaElement | null>, value: string) {
+  useEffect(() => {
+    const el = ref.current
+    if (!el) return
+    el.style.height = 'auto'
+    el.style.height = `${el.scrollHeight}px`
+  }, [ref, value])
+}
+
+function AutoTextarea({
+  value,
+  onChange,
+  ...rest
+}: React.TextareaHTMLAttributes<HTMLTextAreaElement> & { value: string; onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void }) {
+  const ref = useRef<HTMLTextAreaElement>(null)
+  useAutoResizeTextarea(ref, value)
+  return <textarea ref={ref} value={value} onChange={onChange} {...rest} />
+}
+
 function MagnifierTracker({ value, onChange, count = 5 }: { value: number; onChange: (v: number) => void; count?: number }) {
   return (
     <div className="magnifier-row">
@@ -39,6 +58,7 @@ function Relogio({ value, onChange }: { value: number; onChange: (v: number) => 
   return (
     <svg viewBox="0 0 100 100" width={140} height={140} style={{ display: 'block' }}>
       <circle cx="50" cy="50" r="46" fill="var(--paper)" stroke="#000" strokeWidth="3" />
+      <circle cx="50" cy="50" r="46" fill="none" stroke="#7a1e1e" strokeWidth="3" className="heist-relogio-pulse" opacity="0" />
       {Array.from({ length: segmentos }, (_, i) => {
         const angle1 = (i * 360 / segmentos) - 90
         const angle2 = ((i + 1) * 360 / segmentos) - 90
@@ -56,12 +76,12 @@ function Relogio({ value, onChange }: { value: number; onChange: (v: number) => 
             fill={filled ? '#7a1e1e' : 'transparent'}
             stroke="#000"
             strokeWidth="2"
+            className={filled ? 'heist-seg-pulse' : ''}
+            style={{ animationDelay: `${i * 0.18}s`, cursor: 'pointer' }}
             onClick={() => onChange(i + 1 === value ? i : i + 1)}
-            style={{ cursor: 'pointer' }}
           />
         )
       })}
-      <circle cx="50" cy="50" r="6" fill="#000" />
     </svg>
   )
 }
@@ -141,7 +161,7 @@ export function HeistSheet({ heist, onBack }: HeistSheetProps) {
 
         {lockdown && (
           <div className="heist-alert">
-            <span className="heist-alert-sigil">�</span>
+            <span className="heist-alert-sigil">⚠</span>
             <span><strong>LOCKDOWN</strong> · 4 segmentos marcados · perdem o objetivo e o benefício da invasão. Avancem direto pra Fase 3.</span>
           </div>
         )}
@@ -194,21 +214,21 @@ export function HeistSheet({ heist, onBack }: HeistSheetProps) {
               <span>Defesas da Base</span>
             </div>
             <div className="heist-field-block">
-              <textarea
+              <AutoTextarea
                 className="heist-textarea"
                 value={data.defesas_texto}
                 onChange={(e) => handle('defesas_texto')(e.target.value)}
                 placeholder="Liste as defesas da base (muros, portões, câmeras, alarmes…). Uma por linha."
               />
               <p className="heist-help-inline">
-                Se descoberta durante a Fase 2, personagens ganham <strong>+1</strong> nos testes contra a defesa.
+                Se <strong>descobertas</strong> na Fase 1 → <strong>+1 num teste na Fase 3</strong>.
               </p>
             </div>
           </section>
 
           <section className="heist-section">
             <div className="heist-section-title">
-              <span className="heist-section-sigil">🔓</span>
+              <span className="heist-section-sigil">⛓</span>
               <span>Falha de Segurança</span>
               <span
                 className={`heist-mini-checkbox ${data.falha_descoberta ? 'checked' : ''}`}
@@ -219,14 +239,14 @@ export function HeistSheet({ heist, onBack }: HeistSheetProps) {
               </span>
             </div>
             <div className="heist-field-block">
-              <textarea
+              <AutoTextarea
                 className="heist-textarea"
                 value={data.falha_texto}
                 onChange={(e) => handle('falha_texto')(e.target.value)}
                 placeholder="Descreva a falha específica dessa base…"
               />
               <p className="heist-help-inline">
-                Marcada = descoberta na Fase 2 → <strong>+1 num teste</strong>.
+                Marcada = descoberta na Fase 2 → <strong>+1 num teste</strong>. Quem usar deve dizer qual era a falha.
               </p>
             </div>
           </section>
@@ -249,7 +269,7 @@ export function HeistSheet({ heist, onBack }: HeistSheetProps) {
                         {isDesc ? 'descoberta' : 'oculta'}
                       </span>
                     </div>
-                    <textarea
+                    <AutoTextarea
                       className="heist-room-desc"
                       value={salaPart}
                       onChange={(e) => {
@@ -270,20 +290,20 @@ export function HeistSheet({ heist, onBack }: HeistSheetProps) {
           <div className="heist-row-2col heist-bottom-row">
             <div className="heist-field-block">
               <label className="heist-label">Reforço</label>
-              <input
-                className="heist-input"
+              <AutoTextarea
+                className="heist-input heist-tall-input"
                 value={data.reforco}
                 onChange={(e) => handle('reforco')(e.target.value)}
-                placeholder="Qual tropa de reforço chamar"
+                placeholder="Qual tropa de reforço chamar (Cães de Guarda, Agentes da Mão…)"
               />
             </div>
             <div className="heist-field-block">
               <label className="heist-label">Objetivo</label>
-              <input
-                className="heist-input"
+              <AutoTextarea
+                className="heist-input heist-tall-input"
                 value={data.objetivo}
                 onChange={(e) => handle('objetivo')(e.target.value)}
-                placeholder="O que está preso na base"
+                placeholder="O que está preso na base (alquimista veterano, artefato, prisioneiro…)"
               />
             </div>
           </div>
@@ -320,7 +340,7 @@ export function HeistSheet({ heist, onBack }: HeistSheetProps) {
             </div>
           </section>
 
-          <section className="heist-section">
+          <section className="heist-section heist-suspeita-section">
             <div className="heist-section-title">
               <span className="heist-section-sigil">👁</span>
               <span>Nível de Suspeita</span>
@@ -368,7 +388,7 @@ export function HeistSheet({ heist, onBack }: HeistSheetProps) {
             <span className="heist-section-sigil">✎</span>
             <span>Anotações</span>
           </div>
-          <textarea
+          <AutoTextarea
             className="heist-anotacoes"
             value={data.anotacoes.split('|SALA|')[0] ?? ''}
             onChange={(e) => {

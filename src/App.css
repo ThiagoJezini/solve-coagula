@@ -2820,27 +2820,12 @@
   line-height: 1.2;
 }
 
-.heist-stamp-label {
-  color: var(--paper);
-  opacity: 0.7;
-}
-
-.heist-stamp-num {
-  color: var(--ember);
-  font-weight: 700;
-  font-family: 'Special Elite', monospace;
-}
-
-.heist-stamp-end {
-  text-align: right;
-}
-
+.heist-stamp-label { color: var(--paper); opacity: 0.7; }
+.heist-stamp-num { color: var(--ember); font-weight: 700; font-family: 'Special Elite', monospace; }
+.heist-stamp-end { text-align: right; }
 .heist-page.lockdown .heist-stamp-num { color: var(--blood-bright); animation: pulse-blood 1.2s ease-in-out infinite; }
 
-.heist-title-block {
-  text-align: center;
-  min-width: 0;
-}
+.heist-title-block { text-align: center; min-width: 0; }
 
 .heist-title {
   font-family: 'Special Elite', monospace;
@@ -2879,11 +2864,7 @@
 }
 
 .heist-alert strong { color: var(--paper); }
-
-.heist-alert-sigil {
-  font-size: 20px;
-  animation: pulse-blood 1.2s ease-in-out infinite;
-}
+.heist-alert-sigil { font-size: 20px; animation: pulse-blood 1.2s ease-in-out infinite; }
 
 .heist-body {
   position: relative;
@@ -2935,7 +2916,7 @@
 .heist-section {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 10px;
   min-width: 0;
   font-family: 'IBM Plex Mono', monospace;
 }
@@ -2952,12 +2933,10 @@
   border-bottom: 2px solid #000;
   padding-bottom: 4px;
   font-weight: 400;
+  margin-bottom: 2px;
 }
 
-.heist-section-sigil {
-  font-size: 18px;
-  line-height: 1;
-}
+.heist-section-sigil { font-size: 18px; line-height: 1; }
 
 .heist-section-help-inline {
   margin-left: auto;
@@ -3003,11 +2982,18 @@
   box-sizing: border-box;
   line-height: 1.45;
   border-radius: 0;
+  resize: none;
+  overflow: hidden;
 }
 
 .heist-textarea {
   min-height: 64px;
-  resize: vertical;
+}
+
+.heist-tall-input {
+  min-height: 90px;
+  line-height: 1.5;
+  font-size: 13px;
 }
 
 .heist-anotacoes {
@@ -3086,7 +3072,7 @@
 
 .heist-rooms {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: 10px;
   margin-top: 4px;
   min-width: 0;
@@ -3145,23 +3131,26 @@
   font-size: 11px;
   color: #000;
   padding: 8px;
-  resize: vertical;
   min-height: 80px;
   outline: none;
   box-sizing: border-box;
   line-height: 1.4;
   width: 100%;
   border-radius: 0;
+  resize: none;
+  overflow: hidden;
 }
 
-.heist-room-desc:focus {
-  border-color: var(--ember);
-}
+.heist-room-desc:focus { border-color: var(--ember); }
+
+/* Side (Fases, Suspeita, Relógio) com espaçamento */
+.heist-phases-section { margin-bottom: 22px; }
+.heist-suspeita-section { margin-bottom: 22px; }
 
 .heist-phases {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 8px;
 }
 
 .heist-phase-item {
@@ -3169,7 +3158,7 @@
   grid-template-columns: auto 1fr auto;
   gap: 10px;
   align-items: flex-start;
-  padding: 8px 10px;
+  padding: 10px 12px;
   border: 1.5px solid #000;
   background: var(--paper);
   text-align: left;
@@ -3212,9 +3201,7 @@
   align-self: center;
 }
 
-.heist-phase-item .heist-checkbox {
-  align-self: center;
-}
+.heist-phase-item .heist-checkbox { align-self: center; }
 
 .heist-magnifier-row {
   display: flex;
@@ -3283,6 +3270,27 @@
   letter-spacing: .04em;
 }
 
+/* Relógio: animações */
+@keyframes heist-rel-tick {
+  0%, 100% { stroke-opacity: 1; }
+  50% { stroke-opacity: 0.5; }
+}
+
+@keyframes heist-seg-bloom {
+  0%, 100% { fill-opacity: 1; }
+  50% { fill-opacity: 0.5; }
+}
+
+.heist-relogio-pulse {
+  animation: heist-rel-tick 1.6s ease-in-out infinite;
+}
+
+.heist-seg-pulse {
+  animation: heist-seg-bloom 2s ease-in-out infinite;
+  fill-opacity: 0.85;
+  transform-origin: 50px 50px;
+}
+
 .heist-relogio-wrap {
   display: grid;
   grid-template-columns: auto 1fr;
@@ -3320,18 +3328,15 @@
 }
 
 @media (max-width: 900px) {
-  .heist-rooms { grid-template-columns: repeat(2, 1fr); }
   .heist-side > section { grid-column: auto; }
 }
 
 @media (max-width: 600px) {
   .heist-title { font-size: 22px; }
   .heist-header { padding: 8px 10px; }
-  .heist-rooms { grid-template-columns: 1fr; }
   .heist-relogio-wrap { grid-template-columns: 1fr; }
   .heist-section-title { font-size: 13px; }
 }
-
 /* ---------- Print ---------- */
 @media print {
   body { background: #fff; padding: 0; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
