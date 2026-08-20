@@ -2957,6 +2957,62 @@
   padding: 6px 0;
 }
 
+.heist-magnifier-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 6px 0;
+  flex-wrap: wrap;
+}
+
+.heist-pip-value {
+  font-family: 'Special Elite', monospace;
+  font-size: 18px;
+  color: #000;
+  font-weight: 700;
+  margin-left: auto;
+}
+
+.heist-pip-value.critical {
+  color: var(--blood);
+  animation: pulse-blood 1s ease-in-out infinite;
+}
+
+.magnifier-row {
+  display: flex;
+  gap: 6px;
+}
+
+.magnifier {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border: 2px solid #000;
+  background: var(--paper);
+  color: #000;
+  cursor: pointer;
+  padding: 0;
+  border-radius: 0;
+  font-family: inherit;
+  transition: background 0.12s linear, color 0.12s linear;
+}
+
+.magnifier:hover {
+  background: rgba(106, 45, 138, 0.12);
+}
+
+.magnifier.filled {
+  background: #000;
+  color: var(--paper);
+}
+
+.magnifier.filled:hover {
+  background: var(--ember);
+  color: var(--paper);
+}
+
 .heist-relogio-wrap {
   display: flex;
   gap: 16px;
