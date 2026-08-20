@@ -276,6 +276,29 @@ export function HeistSheet({ heist, onBack }: HeistSheetProps) {
             </div>
           </section>
 
+          <div className="heist-row-2col heist-bottom-row">
+            <div className="heist-field-block">
+              <label className="heist-label">Reforço</label>
+              <AutoTextarea
+                className="heist-input heist-tall-input"
+                value={data.reforco}
+                onChange={(e) => handle('reforco')(e.target.value)}
+                placeholder="Qual tropa de reforço chamar (Cães de Guarda, Agentes da Mão…)"
+              />
+            </div>
+            <div className="heist-field-block">
+              <label className="heist-label">Grupo Dominante</label>
+              <AutoTextarea
+                className="heist-input heist-tall-input"
+                value={data.grupo_dominante}
+                onChange={(e) => handle('grupo_dominante')(e.target.value)}
+                placeholder="Qual grupo da Mão domina a base (ou 'abandonada')"
+              />
+            </div>
+          </div>
+        </div>
+
+        <div className="heist-bottom-section">
           <section className="heist-section heist-section-rooms">
             <div className="heist-section-title">
               <span className="heist-section-sigil">▤</span>
@@ -311,29 +334,7 @@ export function HeistSheet({ heist, onBack }: HeistSheetProps) {
               })}
             </div>
           </section>
-
-          <div className="heist-row-2col heist-bottom-row">
-            <div className="heist-field-block">
-              <label className="heist-label">Reforço</label>
-              <AutoTextarea
-                className="heist-input heist-tall-input"
-                value={data.reforco}
-                onChange={(e) => handle('reforco')(e.target.value)}
-                placeholder="Qual tropa de reforço chamar (Cães de Guarda, Agentes da Mão…)"
-              />
-            </div>
-            <div className="heist-field-block">
-              <label className="heist-label">Grupo Dominante</label>
-              <AutoTextarea
-                className="heist-input heist-tall-input"
-                value={data.grupo_dominante}
-                onChange={(e) => handle('grupo_dominante')(e.target.value)}
-                placeholder="Qual grupo da Mão domina a base (ou 'abandonada')"
-              />
-            </div>
-          </div>
-
-          </div>
+        </div>
 
         <aside className="heist-side">
           <section className="heist-section heist-phases-section">
