@@ -9,7 +9,7 @@ interface HeistSheetProps {
 
 function PipTracker({ value, onChange, count = 5 }: { value: number; onChange: (v: number) => void; count?: number }) {
   return (
-    <div className="pip-row" style={{ gap: 4 }}>
+    <div className="pip-row" style={{ gap: 6 }}>
       {Array.from({ length: count }, (_, i) => (
         <span
           key={i}
@@ -25,8 +25,8 @@ function PipTracker({ value, onChange, count = 5 }: { value: number; onChange: (
 function Relogio({ value, onChange }: { value: number; onChange: (v: number) => void }) {
   const segmentos = 4
   return (
-    <svg viewBox="0 0 100 100" width={120} height={120} style={{ display: 'block' }}>
-      <circle cx="50" cy="50" r="46" fill="var(--paper)" stroke="#000" strokeWidth="2" />
+    <svg viewBox="0 0 100 100" width={140} height={140} style={{ display: 'block' }}>
+      <circle cx="50" cy="50" r="46" fill="var(--paper)" stroke="#000" strokeWidth="3" />
       {Array.from({ length: segmentos }, (_, i) => {
         const angle1 = (i * 360 / segmentos) - 90
         const angle2 = ((i + 1) * 360 / segmentos) - 90
@@ -49,18 +49,24 @@ function Relogio({ value, onChange }: { value: number; onChange: (v: number) => 
           />
         )
       })}
+      <circle cx="50" cy="50" r="6" fill="#000" />
     </svg>
   )
 }
 
-function PhaseCheck({ label, checked, onToggle }: { label: string; checked: boolean; onToggle: () => void }) {
+function PhaseCheck({ num, label, checked, active, onToggle }: { num: number; label: string; checked: boolean; active: boolean; onToggle: () => void }) {
   return (
-    <div className="heist-phase-item" onClick={onToggle}>
+    <button
+      type="button"
+      className={`heist-phase-item ${active ? 'active' : ''} ${checked ? 'checked' : ''}`}
+      onClick={onToggle}
+    >
+      <span className="heist-phase-num">{num}</span>
+      <span className="heist-phase-text">{label}</span>
       <span className={`heist-checkbox ${checked ? 'checked' : ''}`}>
         {checked ? '✓' : ''}
       </span>
-      <span className="heist-phase-label">{label}</span>
-    </div>
+    </button>
   )
 }
 
@@ -94,6 +100,9 @@ export function HeistSheet({ heist, onBack }: HeistSheetProps) {
     saveTimer.current = setTimeout(() => save({ [key]: value } as Partial<Heist>), 700)
   }
 
+  const faseAlerta = data.fase_atual >= 3
+  const lockdown = data.relogio >= 4
+
   return (
     <div className="app">
       <div className="toolbar">
@@ -102,77 +111,135 @@ export function HeistSheet({ heist, onBack }: HeistSheetProps) {
         <span className="status">{status}</span>
       </div>
 
-      <div className="page heist-page">
-        <h1 className="heist-title">Ficha de planejamento</h1>
+      <div className={`page heist-page ${faseAlerta ? 'fase-3' : ''} ${lockdown ? 'lockdown' : ''}`}>
+        <header className="heist-header">
+          <div className="heist-stamp">
+            <span className="heist-stamp-label">ASSALTO</span>
+            <span className="heist-stamp-num">Fase {data.fase_atual}/3</span>
+          </div>
+          <div className="heist-title-block">
+            <h1 className="heist-title">Ficha de planejamento</h1>
+            <span className="heist-subtitle">operação de invasão · fase {data.fase_atual} de 3</span>
+          </div>
+          <div className="heist-stamp heist-stamp-end">
+            <span className="heist-stamp-label">STATUS</span>
+            <span className="heist-stamp-num">{lockdown ? 'LOCKDOWN' : faseAlerta ? 'DESFECHO' : 'PLANEJANDO'}</span>
+          </div>
+        </header>
 
-        <div className="heist-grid">
-          <div className="heist-col-left">
-            <Field label="Nome Real">
-              <input
-                className="heist-input"
-                value={data.nome_real}
-                onChange={(e) => handle('nome_real')(e.target.value)}
-                placeholder="Como a base é conhecida"
-              />
-            </Field>
+        {lockdown && (
+          <div className="heist-alert">
+            <span className="heist-alert-sigil">�</span>
+            <span><strong>LOCKDOWN</strong> · 4 segmentos marcados · perdem o objetivo e o benefício da invasão. Avancem direto pra Fase 3.</span>
+          </div>
+        )}
 
-            <Field label="Nome de Disfarce">
-              <input
-                className="heist-input"
-                value={data.nome_disfarce}
-                onChange={(e) => handle('nome_disfarce')(e.target.value)}
-                placeholder="Como a base é chamada por fora"
-              />
-            </Field>
+        <div className="heist-body">
+          <div className="heist-corner heist-corner-tl" />
+          <div className="heist-corner heist-corner-tr" />
+          <div className="heist-corner heist-corner-bl" />
+          <div className="heist-corner heist-corner-br" />
 
-            <Field label="Local da Base">
+          <section className="heist-section">
+            <div className="heist-section-title">
+              <span className="heist-section-sigil">🗝</span>
+              <span>Identidade da Base</span>
+            </div>
+            <div className="heist-row-2col">
+              <div className="heist-field-block">
+                <label className="heist-label">Nome Real</label>
+                <input
+                  className="heist-input"
+                  value={data.nome_real}
+                  onChange={(e) => handle('nome_real')(e.target.value)}
+                  placeholder="Como a base é conhecida"
+                />
+              </div>
+              <div className="heist-field-block">
+                <label className="heist-label">Nome de Disfarce</label>
+                <input
+                  className="heist-input"
+                  value={data.nome_disfarce}
+                  onChange={(e) => handle('nome_disfarce')(e.target.value)}
+                  placeholder="Como é chamada por fora"
+                />
+              </div>
+            </div>
+            <div className="heist-field-block">
+              <label className="heist-label">Local da Base</label>
               <input
                 className="heist-input"
                 value={data.local_base}
                 onChange={(e) => handle('local_base')(e.target.value)}
                 placeholder="Endereço, fachada, aparência externa"
               />
-            </Field>
+            </div>
+          </section>
 
-            <Field label="Defesas">
+          <section className="heist-section">
+            <div className="heist-section-title">
+              <span className="heist-section-sigil">⚔</span>
+              <span>Defesas da Base</span>
+            </div>
+            <div className="heist-field-block">
               <textarea
                 className="heist-textarea"
                 value={data.defesas_texto}
                 onChange={(e) => handle('defesas_texto')(e.target.value)}
                 placeholder="Liste as defesas da base (muros, portões, câmeras, alarmes…). Uma por linha."
               />
-              <p className="heist-help">
+              <p className="heist-help-inline">
                 Se descoberta durante a Fase 2, personagens ganham <strong>+1</strong> nos testes contra a defesa.
               </p>
-            </Field>
+            </div>
+          </section>
 
-            <Field label="Falha de Segurança">
-              <div className="heist-checkbox-row">
-                <span
-                  className={`heist-checkbox ${data.falha_descoberta ? 'checked' : ''}`}
-                  onClick={() => handle('falha_descoberta')(!data.falha_descoberta)}
-                />
-                <span className="heist-help-inline">marcada = descoberta na Fase 2</span>
-              </div>
+          <section className="heist-section">
+            <div className="heist-section-title">
+              <span className="heist-section-sigil">🔓</span>
+              <span>Falha de Segurança</span>
+              <span
+                className={`heist-mini-checkbox ${data.falha_descoberta ? 'checked' : ''}`}
+                onClick={() => handle('falha_descoberta')(!data.falha_descoberta)}
+                title="marcar como descoberta"
+              >
+                {data.falha_descoberta ? '✓' : ''}
+              </span>
+            </div>
+            <div className="heist-field-block">
               <textarea
                 className="heist-textarea"
                 value={data.falha_texto}
                 onChange={(e) => handle('falha_texto')(e.target.value)}
                 placeholder="Descreva a falha específica dessa base…"
               />
-            </Field>
+              <p className="heist-help-inline">
+                Marcada = descoberta na Fase 2 → <strong>+1 num teste</strong>.
+              </p>
+            </div>
+          </section>
 
-            <Field label="Salas da Base" big>
-              <p className="heist-help">Se descoberta, durante a Fase 2 os testes na sala têm +1.</p>
-              <div className="heist-rooms">
-                {[0, 1, 2, 3].map((i) => (
-                  <div key={i} className="heist-room">
+          <section className="heist-section heist-section-rooms">
+            <div className="heist-section-title">
+              <span className="heist-section-sigil">▤</span>
+              <span>Salas da Base</span>
+              <span className="heist-section-help-inline">+1 nos testes da sala se descoberta</span>
+            </div>
+            <div className="heist-rooms">
+              {[0, 1, 2, 3].map((i) => {
+                const salaPart = data.anotacoes.split('|SALA|')[i + 1] ?? ''
+                const isDesc = salaPart.trim().length > 0
+                return (
+                  <div key={i} className={`heist-room ${isDesc ? 'descoberta' : ''}`}>
                     <div className="heist-room-head">
-                      <span className="heist-room-title">Sala {i + 1}</span>
+                      <span className="heist-room-num">SALA {i + 1}</span>
+                      <span className="heist-room-tag">
+                        {isDesc ? 'descoberta' : 'oculta'}
+                      </span>
                     </div>
                     <textarea
                       className="heist-room-desc"
-                      value={data.anotacoes.split('|SALA|')[i + 1] ?? ''}
+                      value={salaPart}
                       onChange={(e) => {
                         const parts = (data.anotacoes.split('|SALA|').length === 5
                           ? data.anotacoes.split('|SALA|')
@@ -180,87 +247,115 @@ export function HeistSheet({ heist, onBack }: HeistSheetProps) {
                         parts[i + 1] = e.target.value
                         handle('anotacoes')(parts.join('|SALA|'))
                       }}
-                      placeholder="Descrição da sala…"
+                      placeholder="Descreva a sala, desafio, tipo…"
                     />
                   </div>
-                ))}
-              </div>
-              <div className="heist-room-dots">
-                {[0, 1, 2, 3].map((i) => (
-                  <span key={i} className="heist-room-dot" />
-                ))}
-              </div>
-            </Field>
-          </div>
+                )
+              })}
+            </div>
+          </section>
 
-          <div className="heist-col-right">
-            <Field label="Fase do Assalto" big>
-              <div className="heist-phases">
-                <PhaseCheck
-                  label="Fase 1 — Levantamento de informações: descobrir detalhes da base sem levantar suspeitas"
-                  checked={data.fase_atual >= 1}
-                  onToggle={() => handle('fase_atual')(1)}
-                />
-                <PhaseCheck
-                  label="Fase 2 — Execução: a própria invasão"
-                  checked={data.fase_atual >= 2}
-                  onToggle={() => handle('fase_atual')(2)}
-                />
-                <PhaseCheck
-                  label="Fase 3 — Desfecho: consequências, fuga ou confronto com a Mão"
-                  checked={data.fase_atual >= 3}
-                  onToggle={() => handle('fase_atual')(3)}
-                />
-              </div>
-            </Field>
-
-            <Field label="Nível de Suspeita">
-              <div className="heist-suspeita">
-                <PipTracker
-                  value={data.suspeita}
-                  onChange={handle('suspeita')}
-                  count={5}
-                />
-              </div>
-              <p className="heist-help">
-                Marca um x para cada nível ganho. Teste de info na Fase 1: +1 sucesso / +2 falha. Jogador pode despistar (-1).
-              </p>
-            </Field>
-
-            <Field label="Relógio de Execução">
-              <div className="heist-relogio-wrap">
-                <Relogio value={data.relogio} onChange={handle('relogio')} />
-                <div className="heist-relogio-help">
-                  <p>O relógio é uma abstração de tensão. Marca 1 segmento por teste falho em sala ou por chamar atenção demais.</p>
-                  <p>Se <strong>4 segmentos</strong> forem marcados → <strong>lockdown</strong>: perdem o objetivo, fase 3 sem benefício.</p>
-                  <p>Ao <strong>avançar pra fase 3</strong>: adicione <strong>reforços</strong> à cena.</p>
-                </div>
-              </div>
-            </Field>
+          <div className="heist-row-2col heist-bottom-row">
+            <div className="heist-field-block">
+              <label className="heist-label">Reforço</label>
+              <input
+                className="heist-input"
+                value={data.reforco}
+                onChange={(e) => handle('reforco')(e.target.value)}
+                placeholder="Qual tropa de reforço chamar"
+              />
+            </div>
+            <div className="heist-field-block">
+              <label className="heist-label">Objetivo</label>
+              <input
+                className="heist-input"
+                value={data.objetivo}
+                onChange={(e) => handle('objetivo')(e.target.value)}
+                placeholder="O que está preso na base"
+              />
+            </div>
           </div>
         </div>
 
-        <div className="heist-bottom-row">
-          <Field label="Reforço">
-            <input
-              className="heist-input"
-              value={data.reforco}
-              onChange={(e) => handle('reforco')(e.target.value)}
-              placeholder="Qual tropa de reforço chamar"
-            />
-          </Field>
+        <aside className="heist-side">
+          <section className="heist-section heist-phases-section">
+            <div className="heist-section-title">
+              <span className="heist-section-sigil">⌬</span>
+              <span>Fases do Assalto</span>
+            </div>
+            <div className="heist-phases">
+              <PhaseCheck
+                num={1}
+                label="Levantamento de informações — descobrir detalhes da base sem levantar muitas suspeitas"
+                checked={data.fase_atual >= 1}
+                active={data.fase_atual === 1}
+                onToggle={() => handle('fase_atual')(Math.max(1, data.fase_atual === 1 ? 0 : 1))}
+              />
+              <PhaseCheck
+                num={2}
+                label="Execução — a própria invasão, atravessando as 4 salas"
+                checked={data.fase_atual >= 2}
+                active={data.fase_atual === 2}
+                onToggle={() => handle('fase_atual')(data.fase_atual >= 2 ? 1 : 2)}
+              />
+              <PhaseCheck
+                num={3}
+                label="Desfecho — consequências, fuga ou confronto com a Mão"
+                checked={data.fase_atual >= 3}
+                active={data.fase_atual === 3}
+                onToggle={() => handle('fase_atual')(data.fase_atual >= 3 ? 2 : 3)}
+              />
+            </div>
+          </section>
 
-          <Field label="Objetivo">
-            <input
-              className="heist-input"
-              value={data.objetivo}
-              onChange={(e) => handle('objetivo')(e.target.value)}
-              placeholder="O que está preso na base"
-            />
-          </Field>
-        </div>
+          <section className="heist-section">
+            <div className="heist-section-title">
+              <span className="heist-section-sigil">👁</span>
+              <span>Nível de Suspeita</span>
+            </div>
+            <div className="heist-pip-row">
+              <PipTracker
+                value={data.suspeita}
+                onChange={handle('suspeita')}
+                count={5}
+              />
+              <span className={`heist-pip-value ${data.suspeita >= 5 ? 'critical' : ''}`}>
+                {data.suspeita}/5
+              </span>
+            </div>
+            {data.suspeita >= 5 && (
+              <div className="heist-warning-inline">
+                ⚠ Suspeita no máximo — cena de caçada inicia imediatamente.
+              </div>
+            )}
+            <p className="heist-help-block">
+              Teste de info na Fase 1: +1 sucesso / +2 falha. Jogador pode despistar (−1).
+            </p>
+          </section>
 
-        <Field label="Anotações" big>
+          <section className="heist-section">
+            <div className="heist-section-title">
+              <span className="heist-section-sigil">⏱</span>
+              <span>Relógio de Execução</span>
+            </div>
+            <div className="heist-relogio-wrap">
+              <Relogio value={data.relogio} onChange={handle('relogio')} />
+              <div className="heist-relogio-help">
+                <p>Marca 1 segmento por teste falho em sala ou atenção demais.</p>
+                <p>
+                  Se <strong>4 segmentos</strong> → <strong>lockdown</strong>: perdem objetivo e o benefício da invasão.
+                </p>
+                <p>Avançando pra <strong>fase 3</strong>: adicione <strong>reforços</strong> à cena.</p>
+              </div>
+            </div>
+          </section>
+        </aside>
+
+        <section className="heist-section heist-section-anotacoes">
+          <div className="heist-section-title">
+            <span className="heist-section-sigil">✎</span>
+            <span>Anotações</span>
+          </div>
           <textarea
             className="heist-anotacoes"
             value={data.anotacoes.split('|SALA|')[0] ?? ''}
@@ -273,17 +368,8 @@ export function HeistSheet({ heist, onBack }: HeistSheetProps) {
             }}
             placeholder="Anotações livres, estratégia, decisões, cenas…"
           />
-        </Field>
+        </section>
       </div>
-    </div>
-  )
-}
-
-function Field({ label, children, big = false }: { label: string; children: React.ReactNode; big?: boolean }) {
-  return (
-    <div className={`heist-field ${big ? 'heist-field-big' : ''}`}>
-      <label className="heist-field-label">{label}</label>
-      {children}
     </div>
   )
 }
