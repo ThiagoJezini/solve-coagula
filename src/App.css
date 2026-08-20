@@ -2882,10 +2882,14 @@
 }
 
 .heist-side {
-  display: contents;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  min-width: 0;
+  font-family: 'IBM Plex Mono', monospace;
 }
 
-.heist-side > section { grid-column: 1 / -1; }
+.heist-side > section { min-width: 0; }
 
 @media (min-width: 901px) {
   .heist-body {
@@ -3337,6 +3341,24 @@
   .heist-relogio-wrap { grid-template-columns: 1fr; }
   .heist-section-title { font-size: 13px; }
 }
+
+.heist-bottom-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 22px;
+  min-width: 0;
+}
+
+.heist-section-objetivo {
+  grid-column: 1 / -1;
+  font-family: 'IBM Plex Mono', monospace;
+}
+
+@media (max-width: 600px) {
+  .heist-bottom-row { grid-template-columns: 1fr; }
+}
+
 /* ---------- Print ---------- */
 @media print {
   body { background: #fff; padding: 0; -webkit-print-color-adjust: exact; print-color-adjust: exact; }

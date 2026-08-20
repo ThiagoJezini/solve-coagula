@@ -90,6 +90,8 @@ export async function createHeist(playerId: string): Promise<Heist> {
     nome_disfarce: '',
     local_base: '',
     objetivo: '',
+    objetivo_obtido: false,
+    grupo_dominante: '',
     fase_atual: 1,
     suspeita: 0,
     relogio: 0,

@@ -298,15 +298,40 @@ export function HeistSheet({ heist, onBack }: HeistSheetProps) {
               />
             </div>
             <div className="heist-field-block">
-              <label className="heist-label">Objetivo</label>
+              <label className="heist-label">Grupo Dominante</label>
               <AutoTextarea
                 className="heist-input heist-tall-input"
-                value={data.objetivo}
-                onChange={(e) => handle('objetivo')(e.target.value)}
-                placeholder="O que está preso na base (alquimista veterano, artefato, prisioneiro…)"
+                value={data.grupo_dominante}
+                onChange={(e) => handle('grupo_dominante')(e.target.value)}
+                placeholder="Qual grupo da Mão domina a base (ou 'abandonada')"
               />
             </div>
           </div>
+
+          <section className="heist-section heist-section-objetivo">
+            <div className="heist-section-title">
+              <span className="heist-section-sigil">◉</span>
+              <span>Objetivo da Invasão</span>
+              <span
+                className={`heist-mini-checkbox ${data.objetivo_obtido ? 'checked' : ''}`}
+                onClick={() => handle('objetivo_obtido')(!data.objetivo_obtido)}
+                title="marcar como obtido"
+              >
+                {data.objetivo_obtido ? '✓' : ''}
+              </span>
+            </div>
+            <div className="heist-field-block">
+              <AutoTextarea
+                className="heist-textarea"
+                value={data.objetivo}
+                onChange={(e) => handle('objetivo')(e.target.value)}
+                placeholder="Descreva o objetivo — quem ou o que está preso na base (alquimista veterano, artefato, prisioneiro…)"
+              />
+              <p className="heist-help-inline">
+                Marcado = objetivo <strong>obtido</strong> na Fase 3.
+              </p>
+            </div>
+          </section>
         </div>
 
         <aside className="heist-side">

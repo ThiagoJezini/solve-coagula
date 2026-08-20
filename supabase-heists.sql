@@ -12,6 +12,8 @@ create table public.heists (
   suspeita integer not null default 0 check (suspeita between 0 and 5),
   relogio integer not null default 0 check (relogio between 0 and 4),
   reforco text not null default '',
+  grupo_dominante text not null default '',
+  objetivo_obtido boolean not null default false,
   falha_descoberta boolean not null default false,
   falhas_texto text not null default '',
   defesas_texto text not null default '',
