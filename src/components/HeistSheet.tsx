@@ -172,7 +172,7 @@ export function HeistSheet({ heist, onBack }: HeistSheetProps) {
           <div className="heist-corner heist-corner-bl" />
           <div className="heist-corner heist-corner-br" />
 
-          <section className="heist-section">
+          <section className="heist-section heist-section-full">
             <div className="heist-section-title">
               <span className="heist-section-sigil">🗝</span>
               <span>Identidade da Base</span>
@@ -208,25 +208,7 @@ export function HeistSheet({ heist, onBack }: HeistSheetProps) {
             </div>
           </section>
 
-          <section className="heist-section">
-            <div className="heist-section-title">
-              <span className="heist-section-sigil">⚔</span>
-              <span>Defesas da Base</span>
-            </div>
-            <div className="heist-field-block">
-              <AutoTextarea
-                className="heist-textarea"
-                value={data.defesas_texto}
-                onChange={(e) => handle('defesas_texto')(e.target.value)}
-                placeholder="Liste as defesas da base (muros, portões, câmeras, alarmes…). Uma por linha."
-              />
-              <p className="heist-help-inline">
-                Se <strong>descobertas</strong> na Fase 1 → <strong>+1 num teste na Fase 3</strong>.
-              </p>
-            </div>
-          </section>
-
-          <section className="heist-section">
+          <section className="heist-section heist-section-full">
             <div className="heist-section-title">
               <span className="heist-section-sigil">⛓</span>
               <span>Falha de Segurança</span>
@@ -251,10 +233,10 @@ export function HeistSheet({ heist, onBack }: HeistSheetProps) {
             </div>
           </section>
 
-          <section className="heist-section heist-section-objetivo">
+          <section className="heist-section heist-section-full">
             <div className="heist-section-title">
               <span className="heist-section-sigil">◉</span>
-              <span>Objetivo da Invasão</span>
+              <span>Objetivo da Missão</span>
               <span
                 className={`heist-mini-checkbox ${data.objetivo_obtido ? 'checked' : ''}`}
                 onClick={() => handle('objetivo_obtido')(!data.objetivo_obtido)}
@@ -279,6 +261,24 @@ export function HeistSheet({ heist, onBack }: HeistSheetProps) {
 
         <div className="heist-bottom-section">
           <div className="heist-bottom-left">
+            <section className="heist-section">
+              <div className="heist-section-title">
+                <span className="heist-section-sigil">⚔</span>
+                <span>Defesas da Base</span>
+              </div>
+              <div className="heist-field-block">
+                <AutoTextarea
+                  className="heist-textarea"
+                  value={data.defesas_texto}
+                  onChange={(e) => handle('defesas_texto')(e.target.value)}
+                  placeholder="Liste as defesas da base (muros, portões, câmeras, alarmes…). Uma por linha."
+                />
+                <p className="heist-help-inline">
+                  Se <strong>descobertas</strong> na Fase 1 → <strong>+1 num teste na Fase 3</strong>.
+                </p>
+              </div>
+            </section>
+
             <div className="heist-field-block">
               <label className="heist-label">Reforço</label>
               <AutoTextarea

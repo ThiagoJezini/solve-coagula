@@ -3351,6 +3351,17 @@
   .heist-section-title { font-size: 13px; }
 }
 
+.heist-section-full {
+  grid-column: 1 / -1;
+  padding: 0 20px 6px;
+}
+
+@media (min-width: 901px) {
+  .heist-section-full {
+    padding: 0 24px 8px;
+  }
+}
+
 .heist-bottom-section {
   display: flex;
   flex-direction: column;
