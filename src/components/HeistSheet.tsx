@@ -275,8 +275,10 @@ export function HeistSheet({ heist, onBack }: HeistSheetProps) {
               </p>
             </div>
           </section>
+        </div>
 
-          <div className="heist-row-2col heist-bottom-row">
+        <div className="heist-bottom-section">
+          <div className="heist-bottom-left">
             <div className="heist-field-block">
               <label className="heist-label">Reforço</label>
               <AutoTextarea
@@ -296,9 +298,7 @@ export function HeistSheet({ heist, onBack }: HeistSheetProps) {
               />
             </div>
           </div>
-        </div>
 
-        <div className="heist-bottom-section">
           <section className="heist-section heist-section-rooms">
             <div className="heist-section-title">
               <span className="heist-section-sigil">▤</span>

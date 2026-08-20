@@ -3352,34 +3352,30 @@
 }
 
 .heist-bottom-section {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  display: flex;
+  flex-direction: column;
   gap: 16px;
   padding: 0 20px 18px;
   min-width: 0;
   font-family: 'IBM Plex Mono', monospace;
 }
 
-.heist-bottom-section > .heist-section-rooms {
-  grid-column: 1;
+.heist-bottom-left {
   display: flex;
   flex-direction: column;
-  min-height: 360px;
-}
-
-.heist-bottom-row {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  margin: 0;
+  gap: 14px;
   min-width: 0;
 }
 
 @media (min-width: 901px) {
-  .heist-bottom-row {
+  .heist-bottom-section {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 16px;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
+    gap: 20px;
+  }
+
+  .heist-bottom-section > .heist-section-rooms {
+    grid-column: 2;
   }
 }
 
