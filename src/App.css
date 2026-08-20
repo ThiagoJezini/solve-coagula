@@ -2875,6 +2875,7 @@
     "identity"
     "defesas"
     "falha"
+    "objetivo"
     "salas"
     "refobj";
   gap: 16px;
@@ -2897,7 +2898,8 @@
     grid-template-areas:
       "identity phases"
       "defesas suspeita"
-      "falha    relogio"
+      "falha    objetivo"
+      "objetivo relogio"
       "salas    salas"
       "refobj   refobj";
     gap: 18px 24px;
@@ -3077,9 +3079,10 @@
 .heist-rooms {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 10px;
+  gap: 12px;
   margin-top: 4px;
   min-width: 0;
+  min-height: 360px;
 }
 
 .heist-room {
@@ -3088,6 +3091,11 @@
   gap: 0;
   border: 1.5px solid #000;
   background: var(--paper);
+  min-height: 200px;
+}
+
+.heist-room-duplicate {
+  display: none;
 }
 
 .heist-room.descoberta {
@@ -3134,8 +3142,8 @@
   font-family: 'IBM Plex Mono', monospace;
   font-size: 11px;
   color: #000;
-  padding: 8px;
-  min-height: 80px;
+  padding: 10px;
+  min-height: 160px;
   outline: none;
   box-sizing: border-box;
   line-height: 1.4;
@@ -3143,6 +3151,7 @@
   border-radius: 0;
   resize: none;
   overflow: hidden;
+  flex: 1;
 }
 
 .heist-room-desc:focus { border-color: var(--ember); }
@@ -3351,7 +3360,7 @@
 }
 
 .heist-section-objetivo {
-  grid-column: 1 / -1;
+  grid-area: objetivo;
   font-family: 'IBM Plex Mono', monospace;
 }
 
