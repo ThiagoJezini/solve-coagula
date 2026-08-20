@@ -12,8 +12,10 @@ create table public.heists (
   suspeita integer not null default 0 check (suspeita between 0 and 5),
   relogio integer not null default 0 check (relogio between 0 and 4),
   reforco text not null default '',
-  veterano_bonus text not null default '',
   falha_descoberta boolean not null default false,
+  falhas_texto text not null default '',
+  defesas_texto text not null default '',
+  falha_texto text not null default '',
   anotacoes text not null default '',
   created_at timestamp with time zone not null default now(),
   updated_at timestamp with time zone not null default now()

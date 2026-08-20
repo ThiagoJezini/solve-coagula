@@ -135,6 +135,12 @@ export function HeistSheet({ heist, onBack }: HeistSheetProps) {
             </Field>
 
             <Field label="Defesas">
+              <textarea
+                className="heist-textarea"
+                value={data.defesas_texto}
+                onChange={(e) => handle('defesas_texto')(e.target.value)}
+                placeholder="Liste as defesas da base (muros, portões, câmeras, alarmes…). Uma por linha."
+              />
               <p className="heist-help">
                 Se descoberta durante a Fase 2, personagens ganham <strong>+1</strong> nos testes contra a defesa.
               </p>
@@ -146,8 +152,14 @@ export function HeistSheet({ heist, onBack }: HeistSheetProps) {
                   className={`heist-checkbox ${data.falha_descoberta ? 'checked' : ''}`}
                   onClick={() => handle('falha_descoberta')(!data.falha_descoberta)}
                 />
-                <span className="heist-help-inline">Descoberta durante Fase 2 = +1 num teste.</span>
+                <span className="heist-help-inline">marcada = descoberta na Fase 2</span>
               </div>
+              <textarea
+                className="heist-textarea"
+                value={data.falha_texto}
+                onChange={(e) => handle('falha_texto')(e.target.value)}
+                placeholder="Descreva a falha específica dessa base…"
+              />
             </Field>
 
             <Field label="Salas da Base" big>
@@ -224,15 +236,6 @@ export function HeistSheet({ heist, onBack }: HeistSheetProps) {
                   <p>Ao <strong>avançar pra fase 3</strong>: adicione <strong>reforços</strong> à cena.</p>
                 </div>
               </div>
-            </Field>
-
-            <Field label="Veterano (COR)">
-              <input
-                className="heist-input"
-                value={data.veterano_bonus}
-                onChange={(e) => handle('veterano_bonus')(e.target.value)}
-                placeholder="Bônus escolhido pelo alquimista veterano"
-              />
             </Field>
 
             <Field label="Reforço">

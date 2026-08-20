@@ -16,27 +16,10 @@ export interface Heist {
   suspeita: number
   relogio: number
   reforco: string
-  veterano_bonus: string
   falha_descoberta: boolean
-  anotacoes: string
-  created_at: string
-  updated_at: string
-}
-
-export interface Heist {
-  id: string
-  player_id: string
-  nome: string
-  nome_real: string
-  nome_disfarce: string
-  local_base: string
-  objetivo: string
-  fase_atual: number
-  suspeita: number
-  relogio: number
-  reforco: string
-  veterano_bonus: string
-  falha_descoberta: boolean
+  falhas_texto: string
+  defesas_texto: string
+  falha_texto: string
   anotacoes: string
   created_at: string
   updated_at: string

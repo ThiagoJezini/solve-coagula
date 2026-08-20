@@ -94,8 +94,10 @@ export async function createHeist(playerId: string): Promise<Heist> {
     suspeita: 0,
     relogio: 0,
     reforco: '',
-    veterano_bonus: '',
     falha_descoberta: false,
+    falhas_texto: '',
+    defesas_texto: '',
+    falha_texto: '',
     anotacoes: '',
   }
   const { data, error } = await supabase
