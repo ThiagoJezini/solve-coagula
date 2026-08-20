@@ -2784,88 +2784,215 @@
 
 /* ---------- Heist Sheet ---------- */
 .heist-page {
-  padding: 32px 34px 40px;
+  padding: 0;
+  background:
+    radial-gradient(circle at 0% 0%, rgba(106,45,138,0.04), transparent 60%),
+    radial-gradient(circle at 100% 100%, rgba(122,30,30,0.04), transparent 60%);
+  position: relative;
+}
+
+.heist-page.fase-3 { background-image: radial-gradient(circle at 50% 0%, rgba(122,30,30,0.08), transparent 60%); }
+.heist-page.lockdown { background-image: radial-gradient(circle at 50% 0%, rgba(122,30,30,0.18), transparent 70%); }
+
+.heist-header {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  background: #000;
+  color: var(--paper);
+  border-bottom: 2px solid #000;
+  position: relative;
+  font-family: 'IBM Plex Mono', monospace;
+}
+
+.heist-stamp {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 4px 8px;
+  border: 1px solid var(--paper);
+  font-family: 'Special Elite', monospace;
+  font-size: 9px;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  line-height: 1.2;
+}
+
+.heist-stamp-label {
+  color: var(--paper);
+  opacity: 0.7;
+}
+
+.heist-stamp-num {
+  color: var(--ember);
+  font-weight: 700;
+  font-family: 'Special Elite', monospace;
+}
+
+.heist-stamp-end {
+  text-align: right;
+}
+
+.heist-page.lockdown .heist-stamp-num { color: var(--blood-bright); animation: pulse-blood 1.2s ease-in-out infinite; }
+
+.heist-title-block {
+  text-align: center;
+  min-width: 0;
 }
 
 .heist-title {
   font-family: 'Special Elite', monospace;
-  font-size: 42px;
+  font-size: 30px;
   font-weight: 400;
-  letter-spacing: .04em;
-  margin: 0 0 24px;
-  text-align: center;
-  color: #000;
-  text-shadow: 2px 2px 0 var(--shadow);
-  border-bottom: 2px solid #000;
-  padding-bottom: 12px;
+  margin: 0;
+  letter-spacing: .14em;
+  color: var(--paper);
+  text-shadow: 1px 1px 0 rgba(106,45,138,0.6);
 }
 
-.heist-grid {
-  display: grid;
-  grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
-  gap: 24px;
-  margin-bottom: 24px;
-  overflow: visible;
-}
-
-.heist-col-left,
-.heist-col-right {
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
-  min-width: 0;
-  overflow: visible;
-}
-
-.heist-field {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  min-width: 0;
-}
-
-.heist-field {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.heist-field-big {
-  margin-top: 4px;
-}
-
-.heist-field-label {
+.heist-subtitle {
   display: block;
   font-family: 'IBM Plex Mono', monospace;
-  font-size: 11px;
-  letter-spacing: .18em;
+  font-size: 9px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--paper);
+  opacity: 0.55;
+  margin-top: 2px;
+}
+
+.heist-alert {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  background: var(--blood);
+  color: var(--paper);
+  font-family: 'Special Elite', monospace;
+  font-size: 12px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  border-bottom: 2px solid #000;
+  animation: shake-glitch 0.3s steps(4, end) infinite;
+}
+
+.heist-alert strong { color: var(--paper); }
+
+.heist-alert-sigil {
+  font-size: 20px;
+  animation: pulse-blood 1.2s ease-in-out infinite;
+}
+
+.heist-body {
+  position: relative;
+  padding: 18px 20px 16px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-areas:
+    "identity"
+    "defesas"
+    "falha"
+    "salas"
+    "refobj";
+  gap: 16px;
+  font-family: 'IBM Plex Mono', monospace;
+}
+
+.heist-side {
+  display: contents;
+}
+
+.heist-side > section { grid-column: 1 / -1; }
+
+@media (min-width: 901px) {
+  .heist-body {
+    grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+    grid-template-areas:
+      "identity phases"
+      "defesas suspeita"
+      "falha    relogio"
+      "salas    salas"
+      "refobj   refobj";
+    gap: 18px 24px;
+  }
+}
+
+.heist-corner {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border: 2px solid #000;
+  pointer-events: none;
+  z-index: 4;
+}
+.heist-corner-tl { top: 6px; left: 6px; border-right: none; border-bottom: none; }
+.heist-corner-tr { top: 6px; right: 6px; border-left: none; border-bottom: none; }
+.heist-corner-bl { bottom: 6px; left: 6px; border-right: none; border-top: none; }
+.heist-corner-br { bottom: 6px; right: 6px; border-left: none; border-top: none; }
+
+.heist-section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+  font-family: 'IBM Plex Mono', monospace;
+}
+
+.heist-section-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Special Elite', monospace;
+  font-size: 15px;
+  letter-spacing: .14em;
   text-transform: uppercase;
   color: #000;
-  font-weight: 700;
-  border-bottom: 1px solid #000;
+  border-bottom: 2px solid #000;
   padding-bottom: 4px;
+  font-weight: 400;
 }
 
-.heist-input {
-  width: 100%;
-  padding: 8px 10px;
-  border: 1.5px solid #000;
-  background: var(--paper);
+.heist-section-sigil {
+  font-size: 18px;
+  line-height: 1;
+}
+
+.heist-section-help-inline {
+  margin-left: auto;
   font-family: 'IBM Plex Mono', monospace;
-  font-size: 13px;
+  font-size: 9px;
+  letter-spacing: .06em;
+  text-transform: uppercase;
   color: #000;
-  outline: none;
-  box-sizing: border-box;
+  opacity: 0.6;
+  font-weight: 400;
 }
 
-.heist-input:focus {
-  border-color: var(--ember);
-  box-shadow: inset 0 0 0 1px var(--ember);
+.heist-field-block {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+  font-family: 'IBM Plex Mono', monospace;
 }
 
-.heist-textarea {
+.heist-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: #000;
+  opacity: 0.7;
+  font-weight: 600;
+}
+
+.heist-input,
+.heist-textarea,
+.heist-room-desc,
+.heist-anotacoes {
   width: 100%;
-  min-height: 70px;
   padding: 8px 10px;
   border: 1.5px solid #000;
   background: var(--paper);
@@ -2874,75 +3001,161 @@
   color: #000;
   outline: none;
   box-sizing: border-box;
-  resize: vertical;
   line-height: 1.45;
+  border-radius: 0;
 }
 
-.heist-textarea:focus {
+.heist-textarea {
+  min-height: 64px;
+  resize: vertical;
+}
+
+.heist-anotacoes {
+  min-height: 140px;
+  background-image:
+    repeating-linear-gradient(to bottom, transparent 0 22px, rgba(34,26,42,0.18) 22px 23px),
+    var(--paper);
+  font-family: 'Special Elite', monospace;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.heist-input:focus,
+.heist-textarea:focus,
+.heist-room-desc:focus,
+.heist-anotacoes:focus {
   border-color: var(--ember);
   box-shadow: inset 0 0 0 1px var(--ember);
-}
-
-.heist-help {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 11px;
-  color: #000;
-  line-height: 1.4;
-  margin: 0;
 }
 
 .heist-help-inline {
   font-family: 'IBM Plex Mono', monospace;
-  font-size: 11px;
+  font-size: 10px;
   color: #000;
+  line-height: 1.35;
+  margin: 0;
 }
 
-.heist-help strong {
+.heist-help-block {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  color: #000;
+  line-height: 1.4;
+  margin: 4px 0 0;
+}
+
+.heist-help-inline strong,
+.heist-help-block strong {
   background: var(--ember);
   color: var(--paper);
   padding: 1px 4px;
+  font-weight: 700;
 }
 
-.heist-checkbox-row {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-bottom: 4px;
-}
-
-.heist-checkbox {
+.heist-mini-checkbox {
+  margin-left: auto;
+  width: 22px;
+  height: 22px;
+  min-width: 22px;
+  border: 2px solid #000;
+  background: var(--paper);
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 18px;
-  height: 18px;
-  border: 2px solid #000;
-  background: var(--paper);
-  color: #000;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 700;
-  flex-shrink: 0;
+  color: #000;
+  cursor: pointer;
+  font-family: 'IBM Plex Mono', monospace;
 }
 
-.heist-checkbox.checked {
+.heist-mini-checkbox.checked {
   background: #000;
   color: var(--paper);
 }
 
-.heist-phase-item {
-  display: flex;
-  align-items: flex-start;
-  gap: 10px;
-  padding: 8px 0;
-  cursor: pointer;
+.heist-row-2col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
 }
 
-.heist-phase-label {
+@media (max-width: 600px) {
+  .heist-row-2col { grid-template-columns: 1fr; }
+}
+
+.heist-rooms {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-top: 4px;
+  min-width: 0;
+}
+
+.heist-room {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  border: 1.5px solid #000;
+  background: var(--paper);
+}
+
+.heist-room.descoberta {
+  border-color: var(--ember);
+  box-shadow: inset 0 0 0 1px var(--ember);
+}
+
+.heist-room-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #000;
+  color: var(--paper);
+  padding: 5px 8px;
+  font-family: 'Special Elite', monospace;
+  font-size: 10px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+
+.heist-room-num { font-weight: 700; }
+
+.heist-room-tag {
+  font-size: 9px;
+  font-style: italic;
+  opacity: 0.7;
+  letter-spacing: .04em;
+  text-transform: lowercase;
+  font-family: 'IBM Plex Mono', monospace;
+}
+
+.heist-room.descoberta .heist-room-tag {
+  color: var(--ember);
+  opacity: 1;
+  font-weight: 700;
+  font-style: normal;
+  text-transform: uppercase;
+}
+
+.heist-room-desc {
+  border: none;
+  border-top: 1.5px solid #000;
+  background: var(--paper);
   font-family: 'IBM Plex Mono', monospace;
   font-size: 11px;
   color: #000;
+  padding: 8px;
+  resize: vertical;
+  min-height: 80px;
+  outline: none;
+  box-sizing: border-box;
   line-height: 1.4;
-  flex: 1;
+  width: 100%;
+  border-radius: 0;
+}
+
+.heist-room-desc:focus {
+  border-color: var(--ember);
 }
 
 .heist-phases {
@@ -2951,10 +3164,56 @@
   gap: 6px;
 }
 
-.heist-suspeita {
+.heist-phase-item {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 10px;
+  align-items: flex-start;
+  padding: 8px 10px;
+  border: 1.5px solid #000;
+  background: var(--paper);
+  text-align: left;
+  cursor: pointer;
+  font-family: 'IBM Plex Mono', monospace;
+  width: 100%;
+}
+
+.heist-phase-item.active {
+  background: rgba(106, 45, 138, 0.12);
+  border-color: var(--ember);
+  box-shadow: inset 0 0 0 1px var(--ember);
+}
+
+.heist-phase-num {
+  font-family: 'Special Elite', monospace;
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 1;
+  background: #000;
+  color: var(--paper);
+  width: 32px;
+  height: 32px;
   display: flex;
-  justify-content: flex-start;
-  padding: 6px 0;
+  align-items: center;
+  justify-content: center;
+}
+
+.heist-phase-item.active .heist-phase-num,
+.heist-phase-item.checked .heist-phase-num {
+  background: var(--ember);
+  color: var(--paper);
+}
+
+.heist-phase-text {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  color: #000;
+  line-height: 1.4;
+  align-self: center;
+}
+
+.heist-phase-item .heist-checkbox {
+  align-self: center;
 }
 
 .heist-magnifier-row {
@@ -2995,7 +3254,7 @@
   cursor: pointer;
   padding: 0;
   border-radius: 0;
-  font-family: inherit;
+  font-family: 'IBM Plex Mono', monospace;
   transition: background 0.12s linear, color 0.12s linear;
 }
 
@@ -3013,17 +3272,29 @@
   color: var(--paper);
 }
 
+.heist-warning-inline {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  color: var(--blood);
+  background: rgba(122, 30, 30, 0.12);
+  padding: 6px 8px;
+  border-left: 3px solid var(--blood);
+  margin: 4px 0;
+  letter-spacing: .04em;
+}
+
 .heist-relogio-wrap {
-  display: flex;
-  gap: 16px;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 14px;
   align-items: flex-start;
 }
 
 .heist-relogio-help {
-  flex: 1;
   display: flex;
   flex-direction: column;
   gap: 6px;
+  font-family: 'IBM Plex Mono', monospace;
 }
 
 .heist-relogio-help p {
@@ -3038,115 +3309,27 @@
   background: var(--ember);
   color: var(--paper);
   padding: 1px 3px;
-}
-
-.heist-rooms {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 10px;
-  margin-top: 8px;
-  min-width: 0;
-}
-
-.heist-room {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
-.heist-room-head {
-  background: #000;
-  color: var(--paper);
-  padding: 4px 8px;
-  font-family: 'Special Elite', monospace;
-  font-size: 11px;
-  text-align: center;
-  letter-spacing: .12em;
-  text-transform: uppercase;
-}
-
-.heist-room-title {
-  display: block;
-}
-
-.heist-room-desc {
-  border: 1.5px solid #000;
-  background: var(--paper);
   font-family: 'IBM Plex Mono', monospace;
-  font-size: 11px;
-  color: #000;
-  padding: 6px;
-  resize: vertical;
-  min-height: 70px;
-  max-height: 140px;
-  outline: none;
-  box-sizing: border-box;
-  line-height: 1.4;
-  width: 100%;
+  font-weight: 700;
 }
 
-.heist-room-desc:focus {
-  border-color: var(--ember);
+.heist-section-anotacoes {
+  grid-column: 1 / -1;
+  padding: 0 20px 20px;
+  font-family: 'IBM Plex Mono', monospace;
 }
 
-.heist-room-dots {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  margin-top: 16px;
-  padding: 8px 8px 0;
-  border-top: 1px dashed var(--border-hot);
-  min-width: 0;
-}
-
-.heist-room-dot {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  background: #000;
-  display: block;
-  border: 2px solid var(--border-hot);
-}
-
-.heist-anotacoes {
-  width: 100%;
-  min-height: 140px;
-  padding: 12px;
-  border: 1.5px solid #000;
-  background:
-    repeating-linear-gradient(to bottom, transparent 0 22px, rgba(34,26,42,0.18) 22px 23px),
-    var(--paper);
-  font-family: 'Special Elite', monospace;
-  font-size: 14px;
-  line-height: 1.6;
-  color: #000;
-  resize: vertical;
-  outline: none;
-  box-sizing: border-box;
-}
-
-.heist-bottom-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px;
-  margin-bottom: 18px;
-  min-width: 0;
-}
-
-@media screen and (max-width: 600px) {
-  .heist-bottom-row { grid-template-columns: 1fr; }
-}
-
-@media screen and (max-width: 900px) {
-  .heist-grid { grid-template-columns: 1fr; }
+@media (max-width: 900px) {
   .heist-rooms { grid-template-columns: repeat(2, 1fr); }
+  .heist-side > section { grid-column: auto; }
 }
 
-@media screen and (max-width: 600px) {
-  .heist-title { font-size: 30px; text-shadow: none; }
-  .heist-page { padding: 18px 16px 60px; }
+@media (max-width: 600px) {
+  .heist-title { font-size: 22px; }
+  .heist-header { padding: 8px 10px; }
   .heist-rooms { grid-template-columns: 1fr; }
-  .heist-relogio-wrap { flex-direction: column; }
+  .heist-relogio-wrap { grid-template-columns: 1fr; }
+  .heist-section-title { font-size: 13px; }
 }
 
 /* ---------- Print ---------- */
