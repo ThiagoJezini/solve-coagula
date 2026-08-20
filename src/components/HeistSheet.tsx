@@ -7,17 +7,29 @@ interface HeistSheetProps {
   onBack: () => void
 }
 
-function PipTracker({ value, onChange, count = 5 }: { value: number; onChange: (v: number) => void; count?: number }) {
+function MagnifierTracker({ value, onChange, count = 5 }: { value: number; onChange: (v: number) => void; count?: number }) {
   return (
-    <div className="pip-row" style={{ gap: 6 }}>
-      {Array.from({ length: count }, (_, i) => (
-        <span
-          key={i}
-          className={`pip circle ${i < value ? 'filled' : ''}`}
-          onClick={() => onChange(i + 1 === value ? i : i + 1)}
-          style={{ width: 22, height: 22, cursor: 'pointer' }}
-        />
-      ))}
+    <div className="magnifier-row">
+      {Array.from({ length: count }, (_, i) => {
+        const filled = i < value
+        return (
+          <button
+            key={i}
+            type="button"
+            className={`magnifier ${filled ? 'filled' : ''}`}
+            onClick={() => onChange(i + 1 === value ? i : i + 1)}
+            aria-label={`Suspeita nível ${i + 1}`}
+          >
+            <svg viewBox="0 0 32 32" width="28" height="28" aria-hidden="true">
+              <circle cx="13" cy="13" r="8" fill="none" stroke="currentColor" strokeWidth="2.2" />
+              <line x1="19" y1="19" x2="26" y2="26" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" />
+              {filled && (
+                <circle cx="13" cy="13" r="4.5" fill="currentColor" />
+              )}
+            </svg>
+          </button>
+        )
+      })}
     </div>
   )
 }
@@ -313,8 +325,8 @@ export function HeistSheet({ heist, onBack }: HeistSheetProps) {
               <span className="heist-section-sigil">👁</span>
               <span>Nível de Suspeita</span>
             </div>
-            <div className="heist-pip-row">
-              <PipTracker
+            <div className="heist-magnifier-row">
+              <MagnifierTracker
                 value={data.suspeita}
                 onChange={handle('suspeita')}
                 count={5}

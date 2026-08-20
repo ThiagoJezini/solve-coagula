@@ -11,6 +11,9 @@ type View =
   | { screen: 'sheet'; character: Character; player: Player }
   | { screen: 'heist'; heist: Heist; player: Player }
 
+const MAX_CHARACTERS = 3
+const MAX_HEISTS = 3
+
 export default function App() {
   const [view, setView] = useState<View>({ screen: 'login' })
   const [playerName, setPlayerName] = useState('')
@@ -176,8 +179,16 @@ export default function App() {
             )}
           </div>
 
-          <button className="btn-primary" onClick={handleCreateCharacter} disabled={loading}>
-            {loading ? 'Criando…' : '+ Nova Ficha'}
+          <button
+            className="btn-primary"
+            onClick={handleCreateCharacter}
+            disabled={loading || view.characters.length >= MAX_CHARACTERS}
+          >
+            {loading
+              ? 'Criando…'
+              : view.characters.length >= MAX_CHARACTERS
+              ? `Limite de ${MAX_CHARACTERS} fichas atingido`
+              : '+ Nova Ficha'}
           </button>
 
           <h2 className="list-section-title">Fichas de assalto</h2>
@@ -203,8 +214,16 @@ export default function App() {
             )}
           </div>
 
-          <button className="btn-primary" onClick={handleCreateHeist} disabled={loading}>
-            {loading ? 'Criando…' : '+ Ficha de Assalto'}
+          <button
+            className="btn-primary"
+            onClick={handleCreateHeist}
+            disabled={loading || view.heists.length >= MAX_HEISTS}
+          >
+            {loading
+              ? 'Criando…'
+              : view.heists.length >= MAX_HEISTS
+              ? `Limite de ${MAX_HEISTS} assaltos atingido`
+              : '+ Ficha de Assalto'}
           </button>
         </div>
       </div>
