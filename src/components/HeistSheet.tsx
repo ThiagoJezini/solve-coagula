@@ -237,25 +237,27 @@ export function HeistSheet({ heist, onBack }: HeistSheetProps) {
                 </div>
               </div>
             </Field>
-
-            <Field label="Reforço">
-              <input
-                className="heist-input"
-                value={data.reforco}
-                onChange={(e) => handle('reforco')(e.target.value)}
-                placeholder="Qual tropa de reforço chamar"
-              />
-            </Field>
-
-            <Field label="Objetivo">
-              <input
-                className="heist-input"
-                value={data.objetivo}
-                onChange={(e) => handle('objetivo')(e.target.value)}
-                placeholder="O que está preso na base"
-              />
-            </Field>
           </div>
+        </div>
+
+        <div className="heist-bottom-row">
+          <Field label="Reforço">
+            <input
+              className="heist-input"
+              value={data.reforco}
+              onChange={(e) => handle('reforco')(e.target.value)}
+              placeholder="Qual tropa de reforço chamar"
+            />
+          </Field>
+
+          <Field label="Objetivo">
+            <input
+              className="heist-input"
+              value={data.objetivo}
+              onChange={(e) => handle('objetivo')(e.target.value)}
+              placeholder="O que está preso na base"
+            />
+          </Field>
         </div>
 
         <Field label="Anotações" big>

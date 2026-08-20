@@ -3069,6 +3069,18 @@
   box-sizing: border-box;
 }
 
+.heist-bottom-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 18px;
+  min-width: 0;
+}
+
+@media screen and (max-width: 600px) {
+  .heist-bottom-row { grid-template-columns: 1fr; }
+}
+
 @media screen and (max-width: 900px) {
   .heist-grid { grid-template-columns: 1fr; }
   .heist-rooms { grid-template-columns: repeat(2, 1fr); }
