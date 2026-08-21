@@ -3116,17 +3116,39 @@
 .heist-room-head {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  gap: 8px;
   background: #000;
   color: var(--paper);
   padding: 5px 8px;
   font-family: 'Special Elite', monospace;
   font-size: 10px;
   letter-spacing: .12em;
-  text-transform: uppercase;
 }
 
-.heist-room-num { font-weight: 700; }
+.heist-room-num { font-weight: 700; flex: 1; }
+
+.heist-room-checkbox {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  border: 1.5px solid var(--paper);
+  background: transparent;
+  color: var(--paper);
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+  flex-shrink: 0;
+  font-family: 'IBM Plex Mono', monospace;
+  line-height: 1;
+}
+
+.heist-room-checkbox.checked {
+  background: var(--ember);
+  border-color: var(--ember);
+  color: var(--paper);
+}
 
 .heist-room-tag {
   font-size: 9px;

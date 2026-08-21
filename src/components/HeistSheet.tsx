@@ -314,11 +314,22 @@ export function HeistSheet({ heist, onBack }: HeistSheetProps) {
             <div className="heist-rooms">
               {[0, 1, 2, 3].map((i) => {
                 const salaPart = data.anotacoes.split('|SALA|')[i + 1] ?? ''
-                const isDesc = salaPart.trim().length > 0
+                const isDesc = data.salas_descobertas[i] ?? false
                 return (
                   <div key={i} className={`heist-room ${isDesc ? 'descoberta' : ''}`}>
                     <div className="heist-room-head">
                       <span className="heist-room-num">SALA {i + 1}</span>
+                      <span
+                        className={`heist-room-checkbox ${isDesc ? 'checked' : ''}`}
+                        onClick={() => {
+                          const next = [...data.salas_descobertas]
+                          next[i] = !next[i]
+                          handle('salas_descobertas')(next)
+                        }}
+                        title={isDesc ? 'marcada como descoberta' : 'marcar como descoberta'}
+                      >
+                        {isDesc ? '✓' : ''}
+                      </span>
                       <span className="heist-room-tag">
                         {isDesc ? 'descoberta' : 'oculta'}
                       </span>

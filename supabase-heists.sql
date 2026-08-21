@@ -19,6 +19,7 @@ create table public.heists (
   falhas_texto text not null default '',
   defesas_texto text not null default '',
   falha_texto text not null default '',
+  salas_descobertas boolean[] not null default '{false,false,false,false}',
   anotacoes text not null default '',
   created_at timestamp with time zone not null default now(),
   updated_at timestamp with time zone not null default now()

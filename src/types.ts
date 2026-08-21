@@ -23,6 +23,7 @@ export interface Heist {
   falhas_texto: string
   defesas_texto: string
   falha_texto: string
+  salas_descobertas: boolean[]
   anotacoes: string
   created_at: string
   updated_at: string

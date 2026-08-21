@@ -100,6 +100,7 @@ export async function createHeist(playerId: string): Promise<Heist> {
     falhas_texto: '',
     defesas_texto: '',
     falha_texto: '',
+    salas_descobertas: [false, false, false, false],
     anotacoes: '',
   }
   const { data, error } = await supabase
