@@ -12,13 +12,14 @@ export interface Heist {
   nome_disfarce: string
   local_base: string
   objetivo: string
-  objetivo_obtido: boolean
+  objetivo_obtido?: boolean
   grupo_dominante: string
   fase_atual: number
   suspeita: number
   relogio: number
   reforco: string
   falha_descoberta: boolean
+  defesas_descobertas: boolean
   falhas_texto: string
   defesas_texto: string
   falha_texto: string

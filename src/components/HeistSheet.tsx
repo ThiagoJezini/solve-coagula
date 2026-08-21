@@ -235,15 +235,7 @@ export function HeistSheet({ heist, onBack }: HeistSheetProps) {
 
           <section className="heist-section heist-section-full">
             <div className="heist-section-title">
-              <span className="heist-section-sigil">◉</span>
               <span>Objetivo da Missão</span>
-              <span
-                className={`heist-mini-checkbox ${data.objetivo_obtido ? 'checked' : ''}`}
-                onClick={() => handle('objetivo_obtido')(!data.objetivo_obtido)}
-                title="marcar como obtido"
-              >
-                {data.objetivo_obtido ? '✓' : ''}
-              </span>
             </div>
             <div className="heist-field-block">
               <AutoTextarea
@@ -253,7 +245,7 @@ export function HeistSheet({ heist, onBack }: HeistSheetProps) {
                 placeholder="Descreva o objetivo — quem ou o que está preso na base (alquimista veterano, artefato, prisioneiro…)"
               />
               <p className="heist-help-inline">
-                Marcado = objetivo <strong>obtido</strong> na Fase 3.
+                Quem trouxer este objetivo vivo ou recuperado na Fase 3 ganha o <strong>Veterano (COR)</strong>.
               </p>
             </div>
           </section>
@@ -264,6 +256,13 @@ export function HeistSheet({ heist, onBack }: HeistSheetProps) {
             <section className="heist-section">
               <div className="heist-section-title">
                 <span>Defesas da Base</span>
+                <span
+                  className={`heist-mini-checkbox ${data.defesas_descobertas ? 'checked' : ''}`}
+                  onClick={() => handle('defesas_descobertas')(!data.defesas_descobertas)}
+                  title="marcar como descobertas"
+                >
+                  {data.defesas_descobertas ? '✓' : ''}
+                </span>
               </div>
               <div className="heist-field-block">
                 <AutoTextarea
@@ -273,7 +272,7 @@ export function HeistSheet({ heist, onBack }: HeistSheetProps) {
                   placeholder="Liste as defesas da base (muros, portões, câmeras, alarmes…). Uma por linha."
                 />
                 <p className="heist-help-inline">
-                  Se <strong>descobertas</strong> na Fase 1 → <strong>+1 num teste na Fase 3</strong>.
+                  Marcadas como descobertas → <strong>+1 num teste na Fase 3</strong>.
                 </p>
               </div>
             </section>
