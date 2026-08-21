@@ -2784,12 +2784,15 @@
 
 /* ---------- Heist Sheet ---------- */
 .heist-page {
-  padding: 0 22px 32px;
+  padding: 0;
   background:
     radial-gradient(circle at 0% 0%, rgba(106,45,138,0.04), transparent 60%),
     radial-gradient(circle at 100% 100%, rgba(122,30,30,0.04), transparent 60%);
   position: relative;
-  box-sizing: border-box;
+}
+
+.heist-side {
+  padding: 0 22px 18px;
 }
 
 .heist-page.fase-3 { background-image: radial-gradient(circle at 50% 0%, rgba(122,30,30,0.08), transparent 60%); }
