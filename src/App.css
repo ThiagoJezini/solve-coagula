@@ -1234,7 +1234,7 @@
 
 .char-card:hover { background: rgba(86,72,104,0.55); }
 
-.char-info { flex: 1; }
+.char-info { flex: 1; min-width: 0; }
 .char-name {
   font-family: 'Special Elite', monospace;
   font-size: 18px;
@@ -1242,8 +1242,13 @@
   margin-bottom: 2px;
   letter-spacing: .04em;
   color: var(--ink);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 100%;
+  min-width: 0;
 }
-.char-player { font-size: 11px; color: var(--ink-soft); letter-spacing: .08em; }
+.char-player { font-size: 11px; color: var(--ink-soft); letter-spacing: .08em; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .char-date { font-size: 11px; color: var(--muted); }
 
 .btn-delete {
@@ -1255,6 +1260,8 @@
   font-size: 14px;
   color: var(--blood-bright);
   font-family: 'IBM Plex Mono', monospace;
+  flex-shrink: 0;
+  margin-left: 12px;
 }
 
 .btn-delete:hover { background: var(--blood); color: var(--ink); border-color: var(--blood); }
