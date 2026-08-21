@@ -139,7 +139,6 @@ export function HeistSheet({ heist, onBack }: HeistSheetProps) {
     <div className="app">
       <div className="toolbar">
         <button className="btn-back" onClick={onBack}>← Voltar</button>
-        <button className="btn-pdf" onClick={() => window.print()}>🖨️ PDF</button>
         <span className="status">{status}</span>
       </div>
 

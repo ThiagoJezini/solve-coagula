@@ -111,7 +111,6 @@ export function CharacterSheet({ character, onBack }: CharacterSheetProps) {
     <div className="app">
       <div className="toolbar">
         <button className="btn-back" onClick={onBack}>← Voltar</button>
-        <button className="btn-pdf" onClick={() => window.print()}>🖨️ PDF</button>
         <button className="btn-descansar" onClick={handleDescansar}>
           🛏️ Descansar
         </button>
