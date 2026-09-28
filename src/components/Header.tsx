@@ -26,15 +26,16 @@ export function Header({ jogador, alquimista, xp, onJogadorChange, onAlquimistaC
             placeholder="nome do alquimista"
           />
         </div>
-        <div className="xp-block">
-          <div className="xp-label">XP</div>
-          <input
-            type="number"
-            className="xp-circle"
-            value={xp}
-            onChange={(e) => onXpChange(parseInt(e.target.value, 10) || 0)}
-          />
-        </div>
+      </div>
+      <div className="xp-block">
+        <div className="xp-label">XP</div>
+        <input
+          type="number"
+          className="xp-circle"
+          value={xp || ''}
+          onChange={(e) => onXpChange(parseInt(e.target.value, 10) || 0)}
+          placeholder="0"
+        />
       </div>
     </header>
   )
