@@ -161,7 +161,7 @@ export default function App() {
             {view.characters.map((c) => (
               <div key={c.id} className="char-card" onClick={() => handleSelectCharacter(c)}>
                 <div className="char-info">
-                  <div className="char-name">{c.bruxo || 'Sem nome'}</div>
+                  <div className="char-name">{c.alquimista || 'Sem nome'}</div>
                   <div className="char-player">Jogador: {c.jogador || '—'}</div>
                   <div className="char-date">Atualizado: {new Date(c.updated_at).toLocaleDateString('pt-BR')}</div>
                 </div>

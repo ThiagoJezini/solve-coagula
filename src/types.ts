@@ -35,7 +35,7 @@ export interface Character {
   id: string
   player_id: string
   jogador: string
-  bruxo: string
+  alquimista: string
   xp: number
   num_consciencia: number
   pilar_consciencia: number

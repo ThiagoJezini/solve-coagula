@@ -120,10 +120,10 @@ export function CharacterSheet({ character, onBack }: CharacterSheetProps) {
       <div className="page">
         <Header
           jogador={data.jogador || ''}
-          bruxo={data.bruxo || ''}
+          alquimista={data.alquimista || ''}
           xp={data.xp || 0}
           onJogadorChange={handle('jogador')}
-          onBruxoChange={handle('bruxo')}
+          onAlquimistaChange={handle('alquimista')}
           onXpChange={handle('xp')}
         />
 

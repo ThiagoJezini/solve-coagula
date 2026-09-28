@@ -1,45 +1,40 @@
 interface HeaderProps {
   jogador: string
-  bruxo: string
+  alquimista: string
   xp: number
   onJogadorChange: (value: string) => void
-  onBruxoChange: (value: string) => void
+  onAlquimistaChange: (value: string) => void
   onXpChange: (value: number) => void
 }
 
-export function Header({ jogador, bruxo, xp, onJogadorChange, onBruxoChange, onXpChange }: HeaderProps) {
+export function Header({ jogador, alquimista, xp, onJogadorChange, onAlquimistaChange, onXpChange }: HeaderProps) {
   return (
     <header className="sheet-header">
-      <h1 className="sheet-title">Solve Coagula</h1>
+      <div className="sheet-title-wrap">
+        <h1 className="sheet-title">Solve Coagula</h1>
+      </div>
       <div className="id-fields">
         <div className="id-row">
           <label>Jogador</label>
-          <input
-            type="text"
-            value={jogador}
-            onChange={(e) => onJogadorChange(e.target.value)}
-            placeholder="nome do jogador"
-          />
+          <input value={jogador} onChange={(e) => onJogadorChange(e.target.value)} placeholder="seu nome de jogador" />
         </div>
         <div className="id-row">
-          <label>Bruxo</label>
+          <label>Alquimista</label>
           <input
-            type="text"
-            value={bruxo}
-            onChange={(e) => onBruxoChange(e.target.value)}
-            placeholder="nome do bruxo"
+            value={alquimista}
+            onChange={(e) => onAlquimistaChange(e.target.value)}
+            placeholder="nome do alquimista"
           />
         </div>
-      </div>
-      <div className="xp-block">
-        <div className="xp-label">XP</div>
-        <input
-          className="xp-circle"
-          type="number"
-          value={xp || ''}
-          onChange={(e) => onXpChange(parseInt(e.target.value) || 0)}
-          placeholder="0"
-        />
+        <div className="xp-block">
+          <div className="xp-label">XP</div>
+          <input
+            type="number"
+            className="xp-circle"
+            value={xp}
+            onChange={(e) => onXpChange(parseInt(e.target.value, 10) || 0)}
+          />
+        </div>
       </div>
     </header>
   )
