@@ -6,11 +6,11 @@ interface MotivacaoProps {
 }
 
 const QUESTIONS = [
-  'Porquê você está procurando seu mestre se você nem consegue se lembrar do nome dele?',
+  'Porquê você está procurando seu mestre se você nem consegue se lembrar do rosto dele?',
   'Qual a pessoa que você protege com sua própria vida?',
   'Porquê a sua relação com seu Foco te desperta uma nostalgia profunda?',
   'O que você mais odeia nessa cidade esfumaçada e com pouco sol?',
-  'Porquê as pessoas tem que se esconder nesses andares inferiores enquanto os ricos ficam nas mansões na superfície?',
+  'Porquê as pessoas tem que se esconder nesses andares inferiores enquanto os poderosos ficam nas mansões na superfície?',
 ]
 
 export function Motivacao({ answers, used, onAnswerChange, onUsedChange }: MotivacaoProps) {

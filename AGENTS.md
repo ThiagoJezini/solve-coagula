@@ -261,11 +261,11 @@ Após a cena, para cada efeito de sorte extrema anotado, sofra 1d6 de estresse.
 
 A revolta e a esperança movem o personagem. Ao criar, responda as 5 perguntas:
 
-1. Por que você está procurando seu mestre se você nem consegue se lembrar do nome dele?
+1. Por que você está procurando seu mestre se você nem consegue se lembrar do rosto dele?
 2. Qual a pessoa que você protege com sua própria vida?
 3. Por que a sua relação com seu Foco te desperta uma nostalgia profunda?
 4. O que você mais odeia nessa cidade esfumaçada e com pouco sol?
-5. Por que as pessoas têm que se esconder nesses andares inferiores enquanto os ricos ficam nas mansões na superfície?
+5. Por que as pessoas têm que se esconder nesses andares inferiores enquanto os poderosos ficam nas mansões na superfície?
 
 As motivações podem dar um último empurrão: durante uma cena com conexão a uma motivação, você pode mudar a narrativa e alterar um acontecimento da cena atual.
 
